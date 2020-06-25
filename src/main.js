@@ -4,4 +4,4 @@ let config = {
     height: 480,
 };
 //create main game object
-let game = new Phaser.Game(config);
+let game = new Phaser.Game(config); 
