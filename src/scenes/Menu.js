@@ -27,7 +27,7 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 64;
 
-        this.add.text(centerX, centerY- textSpacer, 'THOT PATROL', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY- textSpacer, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY, 'Use <- -> arrows to move & (F) to Fire', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor ='#00FF00';
         menuConfig.color = '#000';
