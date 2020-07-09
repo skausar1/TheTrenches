@@ -4,11 +4,11 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+
+
         //load auido
-        this.load.audio('sfx_select', './assets/blip_select12.wav');
-        this.load.audio('sfx_explosion', './assets/explosion38.wav');
-        this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
         this.load.image('tempBoat', './assets/Boat.png');
+
 }
     create(){
         //sets the background color of the game
@@ -29,33 +29,21 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 64;
 
+
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
         this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
         this.add.rectangle(0, 300, 640, 180, 0x1E53FF).setOrigin(0,0);
         this.add.image(centerX, centerY + 15, 'tempBoat');
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
 
         
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            //easy mode
-            game.settings = {
-                spaceshipSpeed: 3,
-                gameTimer: 60000
-            }
-            this.sound.play('sfx_select');
-            this.scene.start("playScene");
-        }
-        if( Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            game.settings = {
-                spaceshipSpeed: 4,
-                gameTimer: 45000
-            }
-            this.sound.play('sfx_select');
-            this.scene.start("playScene");
-        }
+        this.scene.start("playScene");
 
     }
 }
