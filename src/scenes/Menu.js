@@ -4,16 +4,21 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        //load audio
+
+
+        //load auido
+        this.load.image('tempBoat', './assets/Boat.png');
+
 }
     create(){
-        //menu display
+        //sets the background color of the game
+        this.cameras.main.setBackgroundColor("#64CCFF");
+        //menu display, chooses font, size, color, etc
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
+            color: '#FFF',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
@@ -28,6 +33,11 @@ class Menu extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
+        this.add.rectangle(0, 300, 640, 180, 0x1E53FF).setOrigin(0,0);
+        this.add.image(centerX, centerY + 15, 'tempBoat');
+
 
         
     }
