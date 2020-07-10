@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
     create(){
     
       //create player object
-      this.Player = new Player(this, game.config.width/2, game.config.height/4, 'player', 0, 3600);
+      this.Player = new Player(this, game.config.width/2, game.config.height/4, 'player', 0, 100);
 
       //declare movement keys
       keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -57,6 +57,10 @@ class Play extends Phaser.Scene {
         //creating clock and timer for timed events
         this.gameClock = new Phaser.Time.Clock(this);
         this.tick = this.gameClock.now;
+        this.oxyTick =  this.gameClock.now;
+
+        //following this guide: collision between bubbles and player
+
     }
 
     addBubble(posX, posY)
@@ -75,12 +79,35 @@ class Play extends Phaser.Scene {
         else
         {
             //again, after testing should change to always posY
-            bubble = this.add.sprite(Phaser.Math.Between(0, posX),Phaser.Math.Between(0, posY), "bubble").setScale(0.10);
+            bubble = this.add.sprite(Phaser.Math.Between(0, posX),Phaser.Math.Between(0, posY), "bubble");
             this.physics.add.existing(bubble);
             bubble.body.setImmovable(true);
+            //bubble.body.checkCollision = true;
             this.bubbleGroup.add(bubble);
+           
 
         }
+
+        //following guide here: https://www.emanueleferonato.com/2018/12/06/html5-endless-runner-built-with-phaser-and-arcade-physics-step-3-adding-textures-to-platforms-and-coins-to-collect/
+        //set up collision between player and bubbles
+
+        this.physics.add.overlap(this.Player, this.bubbleGroup, function(player, bubble){
+            this.tweens.add({
+                targets: bubble,
+                y: bubble.y - 300,
+                alpha: 0,
+                duration: 0,
+                ease: "Cubic.easeOut",
+                callbackScope: this,
+                onComplete: function(){
+                    this.bubbleGroup.killAndHide(bubble);
+                    this.bubbleGroup.remove(bubble);
+                    
+                }
+            }
+            );
+        }, null, this);
+        
     }
 
 
@@ -118,6 +145,21 @@ class Play extends Phaser.Scene {
             console.log('bubble time');
             this.addBubble(game.config.width, game.config.height);
             this.tick = this.gameClock.now;
+        }
+
+        if(this.gameClock.now - this.oxyTick >= 5000)
+        {
+            this.Player.addOxy(-1);
+            console.log('oxygen =' + this.Player.oxy);
+            this.oxyTick = this.gameClock.now;
+        }
+
+        if(this.physics.collide(this.Player, this.bubbleGroup))
+        {
+            this.bubbleGroup.checkCollision = false;
+            this.Player.addOxy(10);
+            console.log('oxygen = ' + this.Player.oxy);
+
         }
 
 
