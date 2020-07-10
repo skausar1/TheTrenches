@@ -94,7 +94,7 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.Player, this.bubbleGroup, function(player, bubble){
             this.tweens.add({
                 targets: bubble,
-                y: bubble.y - 300,
+                x: bubble.x + 1500,
                 alpha: 0,
                 duration: 0,
                 ease: "Cubic.easeOut",
@@ -140,7 +140,7 @@ class Play extends Phaser.Scene {
             }
         }, this);
 
-        if(this.gameClock.now - this.tick >= 1000)
+        if(this.gameClock.now - this.tick >= 2500)
         {
             console.log('bubble time');
             this.addBubble(game.config.width, game.config.height);
@@ -156,8 +156,8 @@ class Play extends Phaser.Scene {
 
         if(this.physics.collide(this.Player, this.bubbleGroup))
         {
-            this.bubbleGroup.checkCollision = false;
-            this.Player.addOxy(10);
+
+            this.Player.addOxy(5);
             console.log('oxygen = ' + this.Player.oxy);
 
         }
