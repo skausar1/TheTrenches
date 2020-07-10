@@ -8,18 +8,4 @@ class masterEnemy extends Phaser.GameObjects.Sprite {
         //store pointValue
         this.points = pointValue;
     }
-
-    // update() {
-    //     // move spaceship left
-    //     this.x -= game.settings.spaceshipSpeed;
-    //     //wraparound from left to right edge
-    //     if(this.x <= 0 - this.width)
-    //     {
-    //         this.x = game.config.width;
-    //     }
-    // }
-
-    // reset(){
-    //     this.x = game.config.width;
-    // }
 }

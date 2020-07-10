@@ -12,13 +12,14 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_select', './assets/blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/explosion38.wav');
         this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+        this.load.image('H2overlay', './assets/H2overlay.png');
 
     }
 
     create(){
         //place tile spirte bg
         this.starfield = this.add.tileSprite(0,0, 640, 480, 'starfield').setOrigin(0,0);
-
+        
         // while rectangle borders
         this.add.rectangle(5, 5, 630, 32, 0xFFFFFF).setOrigin(0,0);
         this.add.rectangle(5, 443, 630, 32, 0xFFFFFF).setOrigin(0,0);
@@ -42,6 +43,7 @@ class Play extends Phaser.Scene {
                            frameRate: 30
                         });
         this.p1Score = 0;
+        this.H2overlay = this.add.tileSprite(0,0,640,480, 'H2overlay').setOrigin(0,0);
 
         //score display
         let scoreConfig = {
@@ -75,6 +77,7 @@ class Play extends Phaser.Scene {
             this.scene.restart(this.p1Score);
         }
         this.starfield.tilePositionX -= 4;
+        this.H2overlay.tilePositionX += 4;
         if(!this.gameOver)
         {
             this.p1Rocket.update();
