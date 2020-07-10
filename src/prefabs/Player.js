@@ -10,6 +10,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.setDrag(10);
         //this.body.setMaxVelocity(50);
         this.setCollideWorldBounds(true);
+        this.body.checkCollision = true;
         this.onWorldBounds = true;
 
         this.MAX_ACCEL = 200;
@@ -18,13 +19,15 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
        
     }
 
+    addOxy(oxy) {
+        this.oxy += oxy;
+    }
+
     update()
     {
-        this.oxy -= 1;
+
         this.updateCycle += 1;
 
-        if(this.oxy % 60 == 0)
-            console.log('oxygen =' + this.oxy / 60);
 
         if(this.updateCycle >= 300 && this.canJump <= 0)
             this.canJump = 3;
