@@ -41,9 +41,9 @@ class Menu extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
         this.sea = this.add.rectangle(0, 300, 640, 485, 0x1E53FF).setOrigin(0,0);
         this.boat = this.add.image(0, centerY + 15, 'tempBoat');
-        this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '20px';
         startText = this.add.text(centerX, centerY - textSpacer, 'Press Space to Start', menuConfig).setOrigin(0.5);
         startText.alpha = 0;   
@@ -57,7 +57,6 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        //this.scene.start("playScene");
         if(this.boat.x >= centerX)
         {
             if(startTimer.getRepeatCount()%2 == 0)
@@ -74,15 +73,17 @@ class Menu extends Phaser.Scene {
         }
         else if(Phaser.Input.Keyboard.JustDown(keySpace))
         {
-            start = true; 
+            start = true;
+            startText.text = ''; 
         }
         if(start && this.sea.y > -5)
         {
             this.sea.y -= 2;
             this.boat.y -= 2;
         }
-        else
+        else if(this.sea.y <= -5)
         {
+            this.scene.start("playScene");
             start = false;
         }
     }
