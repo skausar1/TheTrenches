@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
     preload(){
        this.load.image('player','./assets/rocket.png');
        this.load.image('bubble', './assets/BOB.png');
+       this.load.image('wall', './assets/stone3_b.jpg');
     }
 
     create(){
@@ -29,7 +30,7 @@ class Play extends Phaser.Scene {
       this.physics.add.overlap(this.Player, this.scrollZone);
 
     
-      //loosely followed guider here: https://www.emanueleferonato.com/2018/12/06/html5-endless-runner-built-with-phaser-and-arcade-physics-step-3-adding-textures-to-platforms-and-coins-to-collect/
+      //loosely followed guide here: https://www.emanueleferonato.com/2018/12/06/html5-endless-runner-built-with-phaser-and-arcade-physics-step-3-adding-textures-to-platforms-and-coins-to-collect/
       //create group for bubbles
         this.bubbleGroup = this.add.group({
             
@@ -61,6 +62,26 @@ class Play extends Phaser.Scene {
 
         //following this guide: collision between bubbles and player
 
+        this.tileHeight = 0;
+
+        this.wallGroup = this.physics.add.group({
+            allowGravity: false,
+            onWorldBounds: true
+        });
+
+        while(this.tileHeight <= game.config.height)
+        {
+            let wallLeft = this.physics.add.sprite(0,this.tileHeight, 'wall');
+            wallLeft.body.setAllowGravity(false);
+            this.wallGroup.add(wallLeft);
+            let wallRight = this.physics.add.sprite(game.config.width, this.tileHeight, 'wall');
+            wallRight.body.setAllowGravity(false);
+            this.wallGroup.add(wallRight);
+            this.tileHeight += 32;
+        }
+
+        console.log(this.wallGroup);
+
     }
 
     addBubble(posX, posY)
@@ -82,6 +103,7 @@ class Play extends Phaser.Scene {
             bubble = this.add.sprite(Phaser.Math.Between(0, posX),Phaser.Math.Between(0, posY), "bubble");
             this.physics.add.existing(bubble);
             bubble.body.setImmovable(true);
+            bubble.body.setGravityY(-30);
             //bubble.body.checkCollision = true;
             this.bubbleGroup.add(bubble);
            
@@ -127,10 +149,53 @@ class Play extends Phaser.Scene {
         else    
             console.log("you're dead!");
 
-        
+        //WARNING!! COMMENTED CODE DOES NOT WORK!! SOME HELP GETTING IT WORKING WOULD BE APPRECIATED
         //detect if player is in scroll zone
-        if(!this.scrollZone.body.touching.none)
-            console.log('below half, scroll time');
+        // let wallArray = this.wallGroup.getChildren();
+        // let topWall = wallArray[i];
+        // topWall.body.onWorldBounds = true;
+        if(!this.scrollZone.body.touching.none){
+            this.Player.body.setAllowGravity(false);
+
+
+            //destroy topmost tiles and repaint new ones at bottom
+            this.wallGroup.setVelocityY(-30);
+
+            //extracting top walls (repeat twice for each side)
+            //  if(topWall.body.onWorldBounds) {
+            // for(let i = 0; i < 2; i++){
+                
+            // let wallArray = this.wallGroup.getChildren();
+            // let topWall = wallArray[i];
+            // topWall.body.onWorldBounds = true;
+            // console.log(topWall);
+            // this.wallGroup.remove(topWall);
+
+            // //adapted from this answer: https://stackoverflow.com/questions/53091837/outofboundskill-equivalent-in-phaser-3
+
+               
+            //         // Check if the body's game object is the sprite you are listening for
+            //         //topWall.destroy();
+            //         if(i == 0) //create left wall
+            //         {
+            //             let wallLeft = this.physics.add.sprite(0,this.tileHeight-32, 'wall');
+            //             this.wallGroup.add(wallLeft);
+            //             console.log('left wall created');
+            //         }
+            //         if(i == 1)
+            //         {
+            //             let wallRight = this.physics.add.sprite(game.config.width, this.tileHeight-32, 'wall');
+            //             this.wallGroup.add(wallRight);
+            //             console.log('right wall created');
+            //         }
+
+            //     }
+            // }
+
+
+        }
+        else
+            this.Player.body.setAllowGravity(true);
 
         //recycling bubbles
         this.bubbleGroup.getChildren().forEach(function(bubble){
