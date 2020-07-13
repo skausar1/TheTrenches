@@ -4,10 +4,10 @@ class Collide extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player','./assets/plant.png');
+        this.load.image('player','./assets/rocket.png');
         this.load.image('bubble', './assets/BOB.png');
         this.load.image('water', './assets/Water_Overlay.png');
-        this.load.image('plants', './assets/spaceship.png');
+        this.load.image('plants', './assets/plant.png');
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('boat', './assets/Boat.png');
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
@@ -38,8 +38,8 @@ class Collide extends Phaser.Scene {
 
 
         //create player object
-        this.plant1 = new Plant(this, game.config.width/2, game.config.height/2, 'plants');
-        this.plant2 = new Plant(this, 102, 610, 'plants');
+        this.plant1 = new Plant(this, game.config.width/2, game.config.height/2 - 30, 'plants');
+        this.plant2 = new Plant(this, 102, 590, 'plants');
         this.Player = new Player(this, 50, 15, 'player', 0, 100);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, 800, this.map.heightInPixels);
