@@ -64,7 +64,7 @@ class Menu extends Phaser.Scene {
         }
         if(this.boat.x <= centerX)
         {
-            this.boat.x += 3;
+            this.boat.x += 2;
         }
         else if(Phaser.Input.Keyboard.JustDown(keySpace))
         {
