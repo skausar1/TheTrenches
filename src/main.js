@@ -1,3 +1,6 @@
+//Untiled Trench Game
+//Names: Dilion Ney, David Carroll, Saif Kausar
+//github Pages: https://skausar1.github.io/TheTrenches/
 
 let config = {
     type: Phaser.CANVAS,
