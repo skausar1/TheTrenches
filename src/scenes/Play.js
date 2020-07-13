@@ -31,16 +31,13 @@ class Play extends Phaser.Scene {
         
         
       //create player object
-      this.Player = new Player(this, game.config.width/2, game.config.height/4, 'Diver',  "DiverV0", 3600);
-      //this.ship01 = new Spaceship(this, game.config.width + 192, 132, 'pyr','Pyramid0001',30).setOrigin(0,0).anims.play('fly'); 
+      this.Player = new Player(this, game.config.width/2, game.config.height/4, 'player', 0, 100);
+
       //declare movement keys
       keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
       keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
       keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-      
-        this.cameras.main.setBounds(0,0,480,1000);
-        this.cameras.main.startFollow(Player, 0, 0, 0, 0, 50);
-
+    
       // followed Phaser 3 guide here: https://phaser.io/examples/v3/view/physics/arcade/overlap-zone
       //create zone to detect whether game should scroll and generate new terrain
       this.scrollZone =  this.add.zone(game.config.width/2, game.config.height - 100).setSize(game.config.width, game.config.height / 2);
@@ -79,24 +76,15 @@ class Play extends Phaser.Scene {
         //creating clock and timer for timed events
         this.gameClock = new Phaser.Time.Clock(this);
         this.tick = this.gameClock.now;
+        this.oxyTick =  this.gameClock.now;
 
-        // O2 Display panel declaration and implimentation
-      this.O2Config = {
-        fontFamily: 'Courier',
-        frontSize: '28px',
-        backgroundColor: '#F3B141',
-        color: '#ffffff',
-        align: 'right',
-        padding:{
-            top: 5,
-            bottem: 5,
-        },
-        fixedWidth: 100
-        } 
+        //following this guide: collision between bubbles and player
+
     }
 
     addBubble(posX, posY)
     {
+    
         this.addedBubbles++;
         let bubble;
       
@@ -111,16 +99,39 @@ class Play extends Phaser.Scene {
         else
         {
             //again, after testing should change to always posY
-            bubble = this.add.sprite(Phaser.Math.Between(0, posX),Phaser.Math.Between(0, posY), "bubblePic").setScale(0.10);
+            bubble = this.add.sprite(Phaser.Math.Between(0, posX),Phaser.Math.Between(0, posY), "bubble");
             this.physics.add.existing(bubble);
             bubble.body.setImmovable(true);
+            //bubble.body.checkCollision = true;
             this.bubbleGroup.add(bubble);
+           
 
         }
+
+        //following guide here: https://www.emanueleferonato.com/2018/12/06/html5-endless-runner-built-with-phaser-and-arcade-physics-step-3-adding-textures-to-platforms-and-coins-to-collect/
+        //set up collision between player and bubbles
+
+        this.physics.add.overlap(this.Player, this.bubbleGroup, function(player, bubble){
+            this.tweens.add({
+                targets: bubble,
+                alpha: 0,
+                duration: 0,
+                ease: "Cubic.easeOut",
+                callbackScope: this,
+                onComplete: function(){
+                    this.bubbleGroup.killAndHide(bubble);
+                    this.bubbleGroup.remove(bubble);
+                    
+                }
+            }
+            );
+        }, null, this);       
     }
 
 
     update(time, delta){
+
+
         //update timer
         this.gameClock.update(time, delta);
 
@@ -161,11 +172,28 @@ class Play extends Phaser.Scene {
             }
         }, this);
 
-        if(this.gameClock.now - this.tick >= 1000)
+        if(this.gameClock.now - this.tick >= 2500)
         {
             console.log('bubble time');
             this.addBubble(game.config.width, game.config.height);
             this.tick = this.gameClock.now;
         }
+
+        if(this.gameClock.now - this.oxyTick >= 5000)
+        {
+            this.Player.addOxy(-1);
+            console.log('oxygen =' + this.Player.oxy);
+            this.oxyTick = this.gameClock.now;
+        }
+
+        if(this.physics.collide(this.Player, this.bubbleGroup))
+        {
+
+            this.Player.addOxy(5);
+            console.log('oxygen = ' + this.Player.oxy);
+
+        }
+
+
     }
 }
