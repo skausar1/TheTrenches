@@ -5,7 +5,6 @@ class Plant extends Phaser.GameObjects.Sprite {
         //add object to existing scene
         scene.add.existing(this);
         this.depth = -1;
-        this.rotation += 1.6;
         this.bubble1 = scene.physics.add.sprite(this.x, this.y, 'bubble').setScale(0.5);
         this.bubble1.setDebugBodyColor(0xFFFF00);
         this.bubble1.depth = -3;

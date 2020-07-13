@@ -41,7 +41,7 @@ class Collide extends Phaser.Scene {
 
         //create player object
         this.plant1 = new Plant(this, game.config.width/2, game.config.height/2 - 30, 'plants');
-        this.plant2 = new Plant(this, 102, 590, 'plants');
+        this.plant2 = new Plant(this, 102, 595, 'plants');
         this.Player = new Player(this, 50, 15, 'player', 0, 100);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, 800, this.map.heightInPixels);
