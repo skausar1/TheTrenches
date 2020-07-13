@@ -50,7 +50,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
         if(keySpace.isDown)
         {
-            this.setVelocityY(-50);
+            this.body.setVelocityY(-50);
            // console.log('space');
         }
         else if(keyS.isDown)
