@@ -9,11 +9,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-
-
         //load auido
         this.load.image('tempBoat', './assets/Boat.png');
-
     }
     create(){
         //sets the background color of the game
@@ -36,9 +33,6 @@ class Menu extends Phaser.Scene {
         //simple spacer
         let textSpacer = 64;
 
-
-        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
@@ -52,8 +46,6 @@ class Menu extends Phaser.Scene {
             loop:true
         });
 
-
-          
     }
 
     update() {
@@ -67,9 +59,9 @@ class Menu extends Phaser.Scene {
                 startText.alpha = 1;
             }
         }
-        if(this.boat.x != centerX)
+        if(this.boat.x <= centerX)
         {
-            this.boat.x += 1;
+            this.boat.x += 2;
         }
         else if(Phaser.Input.Keyboard.JustDown(keySpace))
         {
@@ -83,7 +75,7 @@ class Menu extends Phaser.Scene {
         }
         else if(this.sea.y <= -5)
         {
-            this.scene.start("playScene");
+            this.scene.start("collide");
             start = false;
         }
     }
