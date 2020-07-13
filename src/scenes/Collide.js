@@ -11,6 +11,7 @@ class Collide extends Phaser.Scene {
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('boat', './assets/Boat.png');
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
+        this.load.audio('pop', './assets/bubblePopRefined.wav');
     }
 
     create(){ 
@@ -30,6 +31,7 @@ class Collide extends Phaser.Scene {
 
         this.worldLayer.setCollisionByProperty({ collides: true });
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
+        //Uncomment for debuging platforms
         // this.worldLayer.renderDebug(this.debugGraphics, {
         //   tileColor: null, // Color of non-colliding tiles
         //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
@@ -80,24 +82,28 @@ class Collide extends Phaser.Scene {
         this.plant2.update();
         if(this.physics.overlap(this.Player, this.plant1.bubble1) && this.plant1.bubble1.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant1.bubble1.setVisible(false);
         }
         if(this.physics.overlap(this.Player, this.plant1.bubble2) && this.plant1.bubble2.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant1.bubble2.setVisible(false);
         }
         if(this.physics.overlap(this.Player, this.plant2.bubble1) && this.plant2.bubble1.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant2.bubble1.setVisible(false);
         }
         if(this.physics.overlap(this.Player, this.plant2.bubble2) && this.plant2.bubble2.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant2.bubble2.setVisible(false);
