@@ -7,10 +7,11 @@ class Collide extends Phaser.Scene {
         this.load.image('player','./assets/rocket.png');
         this.load.image('bubble', './assets/BOB.png');
         this.load.image('water', './assets/Water_Overlay.png');
-        this.load.image('plants', './assets/spaceship.png');
+        this.load.image('plants', './assets/plant.png');
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('boat', './assets/Boat.png');
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
+        this.load.audio('pop', './assets/bubblePopRefined.wav');
     }
 
     create(){ 
@@ -18,6 +19,7 @@ class Collide extends Phaser.Scene {
         this.gameClock = new Phaser.Time.Clock(this);
         this.tick = this.gameClock.now;
         this.oxyTick =  this.gameClock.now;
+        
 
         this.cameras.main.setBackgroundColor("#1E53FF");
 
@@ -29,6 +31,7 @@ class Collide extends Phaser.Scene {
 
         this.worldLayer.setCollisionByProperty({ collides: true });
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
+        //Uncomment for debuging platforms
         // this.worldLayer.renderDebug(this.debugGraphics, {
         //   tileColor: null, // Color of non-colliding tiles
         //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
@@ -37,8 +40,8 @@ class Collide extends Phaser.Scene {
 
 
         //create player object
-        this.plant1 = new Plant(this, game.config.width/2, game.config.height/2, 'plants');
-        this.plant2 = new Plant(this, 102, 610, 'plants');
+        this.plant1 = new Plant(this, game.config.width/2, game.config.height/2 - 30, 'plants');
+        this.plant2 = new Plant(this, 102, 595, 'plants');
         this.Player = new Player(this, 50, 15, 'player', 0, 100);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, 800, this.map.heightInPixels);
@@ -52,8 +55,10 @@ class Collide extends Phaser.Scene {
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+
         // this.water = this.add.tileSprite(0, 0, 1000, 1000, 'water').setOrigin(0, 0);
         // this.water.alpha = 0.35;
+        this.O2Display = this.add.text(69, 54, "O2 Left " + Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
     }
 
     update(time, delta){
@@ -77,24 +82,28 @@ class Collide extends Phaser.Scene {
         this.plant2.update();
         if(this.physics.overlap(this.Player, this.plant1.bubble1) && this.plant1.bubble1.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant1.bubble1.setVisible(false);
         }
         if(this.physics.overlap(this.Player, this.plant1.bubble2) && this.plant1.bubble2.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant1.bubble2.setVisible(false);
         }
         if(this.physics.overlap(this.Player, this.plant2.bubble1) && this.plant2.bubble1.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant2.bubble1.setVisible(false);
         }
         if(this.physics.overlap(this.Player, this.plant2.bubble2) && this.plant2.bubble2.visible)
         {
+            this.sound.play('pop');
             this.Player.addOxy(5);
             console.log('oxygen =' + this.Player.oxy);
             this.plant2.bubble2.setVisible(false);
@@ -111,7 +120,7 @@ class Collide extends Phaser.Scene {
             console.log(this.Player.y);
             
         }
-
+        this.O2Display.text = ("O2 Left " + this.Player.oxy);
     }
 
 }
