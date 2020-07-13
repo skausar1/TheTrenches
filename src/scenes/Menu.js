@@ -49,7 +49,6 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        this.scene.start("collide");
         if(this.boat.x >= centerX)
         {
             if(startTimer.getRepeatCount()%2 == 0)
