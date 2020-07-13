@@ -6,12 +6,32 @@ class Play extends Phaser.Scene {
 
     preload(){
        this.load.image('player','./assets/rocket.png');
-       this.load.image('bubble', './assets/BOB.png');
+       this.load.image('bubblePic', './assets/BOB.png');
+       this.load.audio('bubbleSound', './assets/bubblePopRefined.wav');
+       this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
        this.load.image('wall', './assets/stone3_b.jpg');
+
     }
 
     create(){
-    
+        
+        this.camera = this.cameras.main;
+
+        //Diver anime declare
+        this.anims.create({
+            key: 'walkLeft', 
+            frames: this.anims.generateFrameNames('Diver', {  
+            prefix: 'DiverV',
+            start: 1,
+            end: 3,
+            suffix: '.png',
+            zeroPad: 1,
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        
+        
       //create player object
       this.Player = new Player(this, game.config.width/2, game.config.height/4, 'player', 0, 100);
 
@@ -29,7 +49,7 @@ class Play extends Phaser.Scene {
       this.scrollZone.body.moves = false;
 
       this.physics.add.overlap(this.Player, this.scrollZone);
-
+      
     
       //loosely followed guide here: https://www.emanueleferonato.com/2018/12/06/html5-endless-runner-built-with-phaser-and-arcade-physics-step-3-adding-textures-to-platforms-and-coins-to-collect/
       //create group for bubbles
@@ -90,7 +110,7 @@ class Play extends Phaser.Scene {
     
         this.addedBubbles++;
         let bubble;
-
+      
         if(this.bubblePool.getLength())
         {
             bubble = this.bubblePool.getFirst();
@@ -145,10 +165,25 @@ class Play extends Phaser.Scene {
         if(this.Player.oxy <= 0)
             gameOver = true;
 
-        if(!gameOver)
+        if(!gameOver){
             this.Player.update();
-        else    
+            this.O2Display = this.add.text(69,54, "O2 Left " + Math.round(this.Player.oxy / 60), this.O2Config).setScrollFactor(0);
+            this.camera.startFollow(this.Player);
+        }
+        else
             console.log("you're dead!");
+        
+        if(keyA.isDown)
+            this.Player.anims.play('walkLeft');
+        
+        if(keyD.isDown)
+            //this.Player.anims.play('walkRight');
+        
+        if(!keyD.isDown && !keyA.isDown){
+            this.Player.anims.pause('walkLeft');
+            //test
+            
+        }
 
         //WARNING!! COMMENTED CODE DOES NOT WORK!! SOME HELP GETTING IT WORKING WOULD BE APPRECIATED
         //detect if player is in scroll zone

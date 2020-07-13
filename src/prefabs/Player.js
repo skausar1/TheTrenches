@@ -32,6 +32,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(keyA.isDown)
         {
             this.body.setAccelerationX(-this.MAX_ACCEL);
+           
             //console.log("A is down");
         }
         else if(keyD.isDown)
@@ -45,7 +46,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
             this.body.setAccelerationX(0);
             //console.log("nothing down");
             //this.body.setDrag(0.99);
-
         }
 
         if(keySpace.isDown)
