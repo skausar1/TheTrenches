@@ -19,7 +19,7 @@ class Play extends Phaser.Scene {
       keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
       keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
       keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-      
+    
       // followed Phaser 3 guide here: https://phaser.io/examples/v3/view/physics/arcade/overlap-zone
       //create zone to detect whether game should scroll and generate new terrain
       this.scrollZone =  this.add.zone(game.config.width/2, game.config.height - 100).setSize(game.config.width, game.config.height / 2);
@@ -86,6 +86,7 @@ class Play extends Phaser.Scene {
 
     addBubble(posX, posY)
     {
+    
         this.addedBubbles++;
         let bubble;
 
@@ -116,7 +117,6 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.Player, this.bubbleGroup, function(player, bubble){
             this.tweens.add({
                 targets: bubble,
-                x: bubble.x + 1500,
                 alpha: 0,
                 duration: 0,
                 ease: "Cubic.easeOut",
@@ -128,12 +128,12 @@ class Play extends Phaser.Scene {
                 }
             }
             );
-        }, null, this);
-        
+        }, null, this);       
     }
 
 
     update(time, delta){
+
 
         //update timer
         this.gameClock.update(time, delta);

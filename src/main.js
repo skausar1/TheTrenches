@@ -8,12 +8,12 @@ let config = {
         default: 'arcade',
         arcade: {
             fps: 60,
-            debug: true,
+            debug: false,
             //sets gravity to low drag down
             gravity: { y: 20 }
         }
     },
-    scene: [Menu,Play]
+    scene: [Menu,Play, Collide]
 };
 //create main game object
 let game = new Phaser.Game(config); 
@@ -46,4 +46,4 @@ game.settings = {
     //    coinPercent: 25
 }
 
-let keyA, keyD, keySpace;
+let keyA, keyD, keySpace, keyS, keyF;
