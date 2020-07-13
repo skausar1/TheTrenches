@@ -4,7 +4,7 @@ class Collide extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player','./assets/rocket.png');
+        this.load.image('player','./assets/plant.png');
         this.load.image('bubble', './assets/BOB.png');
         this.load.image('water', './assets/Water_Overlay.png');
         this.load.image('plants', './assets/spaceship.png');
