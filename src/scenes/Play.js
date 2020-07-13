@@ -19,6 +19,7 @@ class Play extends Phaser.Scene {
       keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
       keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
       keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+      keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     
       // followed Phaser 3 guide here: https://phaser.io/examples/v3/view/physics/arcade/overlap-zone
       //create zone to detect whether game should scroll and generate new terrain
