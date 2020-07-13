@@ -18,6 +18,7 @@ class Collide extends Phaser.Scene {
         this.gameClock = new Phaser.Time.Clock(this);
         this.tick = this.gameClock.now;
         this.oxyTick =  this.gameClock.now;
+        
 
         this.cameras.main.setBackgroundColor("#1E53FF");
 
@@ -54,6 +55,8 @@ class Collide extends Phaser.Scene {
 
         // this.water = this.add.tileSprite(0, 0, 1000, 1000, 'water').setOrigin(0, 0);
         // this.water.alpha = 0.35;
+        this.O2Display = this.add.text(69, 54, "O2 Left " + Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+
     }
 
     update(time, delta){
@@ -111,7 +114,7 @@ class Collide extends Phaser.Scene {
             console.log(this.Player.y);
             
         }
-
+        this.O2Display.text = ("O2 Left " + this.Player.oxy);
     }
 
 }

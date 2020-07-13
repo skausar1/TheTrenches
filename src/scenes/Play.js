@@ -167,7 +167,6 @@ class Play extends Phaser.Scene {
 
         if(!gameOver){
             this.Player.update();
-            this.O2Display = this.add.text(69,54, "O2 Left " + Math.round(this.Player.oxy / 60), this.O2Config).setScrollFactor(0);
             this.camera.startFollow(this.Player);
         }
         else
