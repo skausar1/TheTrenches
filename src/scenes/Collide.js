@@ -52,8 +52,8 @@ class Collide extends Phaser.Scene {
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        // this.water = this.add.tileSprite(0, 0, 1000, 1000, 'water').setOrigin(0, 0);
-        // this.water.alpha = 0.35;
+         this.water = this.add.tileSprite(0, 0, 1000, 1000, 'water').setOrigin(0, 0);
+         this.water.alpha = 0.35;
     }
 
     update(time, delta){
