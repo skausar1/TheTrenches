@@ -9,11 +9,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-
-
         //load auido
         this.load.image('tempBoat', './assets/Boat.png');
-
     }
     create(){
         //sets the background color of the game
@@ -52,8 +49,6 @@ class Menu extends Phaser.Scene {
             loop:true
         });
 
-
-          
     }
 
     update() {
