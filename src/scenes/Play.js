@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
     }
 
     create(){
-        this.Player.animsSwitch = true;
+        
         this.camera = this.cameras.main;
 
         //Diver anime declare
