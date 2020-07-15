@@ -2,6 +2,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     constructor(scene, x, y, texture, frame, oxygen){
         super(scene, x, y, texture, frame);
         this.oxy = oxygen;
+        this.cash = 0;
 
         
         
