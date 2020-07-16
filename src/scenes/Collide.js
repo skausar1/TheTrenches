@@ -62,12 +62,9 @@ class Collide extends Phaser.Scene {
 
         //Displays O2 meter
         this.O2Display = this.add.text(69, 25, "O2 Left " + Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
-        
-        // Display cash Display
-        this.cashDisplay = this.add.text(250, 25, "$ " + Math.round(this.Player.cash), this.O2Config).setScrollFactor(0);
 
-        //work in progress use this to impliment the pressure calcuator. IDK how you wnat to do it.
-        this.pressureDisplay = this.add.text(450, 25, "Pressure " + Math.round(this.Player.cash), this.O2Config).setScrollFactor(0);
+        //Displays Depth by y of player
+        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + " meters", this.O2Config).setScrollFactor(0);
 
         //checking failstate (too little oxygen)
         this.gameOver = false;
@@ -78,7 +75,7 @@ class Collide extends Phaser.Scene {
         //update timer
         this.gameClock.update(time, delta);
 
-        this.depthDisplay.text = "Depth " + Math.round(this.Player.y/10) + " meters";
+        this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + " meters";
       
 
         if(this.Player.oxy <= 0){
