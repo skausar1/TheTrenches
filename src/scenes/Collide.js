@@ -75,6 +75,39 @@ class Collide extends Phaser.Scene {
         this.plant3 = new Plant(this, 380, 590, 'plants');
         this.plant4 = new Plant(this, 500, game.config.height/2 - 30, 'plants');
         this.Player = new Player(this, 50, 15, 'player', 0, 100).setScale(0.75);
+
+        this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000, .8);
+        
+        const x = this.map.widthInPixels/2;
+        const y = this.map.heightInPixels/2;
+
+		const width = this.cover.width
+		const height = this.cover.height
+
+		const rt = this.make.renderTexture({
+			width,
+			height,
+			add: false
+		})
+
+		const maskImage = this.make.image({
+			x,
+			y,
+			key: rt.texture.key,
+			add: false
+        })
+        this.cover.setOrigin(.5,0);
+
+		this.cover.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
+		this.cover.mask.invertAlpha = true
+
+		this.Player.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
+
+		this.light = this.add.circle(0, 0, 40, 0xFFF, 1)
+		this.light.visible = false;
+
+        this.renderTexture = rt
+
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -158,6 +191,12 @@ class Collide extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyA)) {
             this.scene.start("menuScene");
         }
+
+        const x = this.Player.x - this.cover.x + this.cover.width * 0.5
+		const y = this.Player.y - this.cover.y + this.cover.height * 0.5
+
+		this.renderTexture.clear()
+        this.renderTexture.draw(this.light, x, y)
     }
 
 }

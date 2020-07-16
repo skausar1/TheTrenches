@@ -3,7 +3,7 @@
 //github Pages: https://skausar1.github.io/TheTrenches/
 
 let config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     parent: 'UTG',
     width: 640,
     height: 480,
@@ -11,12 +11,12 @@ let config = {
         default: 'arcade',
         arcade: {
             fps: 60,
-            debug: true,
+            debug: false,
             //sets gravity to low drag down
             gravity: { y: 120 }
         }
     },
-    scene: [Menu,Play, Collide]
+    scene: [Menu,Play,Collide,Light]
 };
 //create main game object
 let game = new Phaser.Game(config); 
