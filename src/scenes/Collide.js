@@ -12,6 +12,7 @@ class Collide extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
+        this.load.image('isopod', './assets/Iso1.png');
        
     }
 
@@ -108,6 +109,7 @@ class Collide extends Phaser.Scene {
 
         this.renderTexture = rt
 
+        this.isopod1 = new isopod(this, 102, 590, 'isodpod', 0, this.worldLayer, this.Player, 1);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -156,6 +158,7 @@ class Collide extends Phaser.Scene {
         this.plant2.update();
         this.plant3.update();
         this.plant4.update();
+        this.isopod1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
