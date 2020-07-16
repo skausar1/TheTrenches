@@ -109,7 +109,7 @@ class Collide extends Phaser.Scene {
 
         this.renderTexture = rt
 
-        this.isopod1 = new isopod(this, 102, 590, 'isodpod', 0, this.worldLayer, this.Player, 1);
+        this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.worldLayer, this.Player, 1);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
