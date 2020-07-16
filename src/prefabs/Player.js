@@ -10,10 +10,11 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.setDrag(10);
-        //this.body.setMaxVelocity(50);
-
+        this.setDrag(100);
         this.MAX_ACCEL = 200;
+        this.body.setMaxVelocity(120);
+        this.body.setCollideWorldBounds(true);
+        
        
     }
 
@@ -33,25 +34,33 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(keyA.isDown)
         {
             this.body.setAccelerationX(-this.MAX_ACCEL);
-           
+            this.anims.play('walkLeft', true);
+            this.resetFlip();
             //console.log("A is down");
         }
         else if(keyD.isDown)
         {
-
+            this.setFlip(true, false);
             this.body.setAccelerationX(this.MAX_ACCEL);
+            this.anims.play('walkLeft', true);
             //console.log("D is down");
+        }
+        else if(this.body.velocity.x != 0)
+        {
+            this.body.setAccelerationX(0);
+            this.anims.play('walkLeft', true);
+            //console.log("nothing down");
+            //this.body.setDrag(0.99);
         }
         else
         {
             this.body.setAccelerationX(0);
-            //console.log("nothing down");
-            //this.body.setDrag(0.99);
+            this.anims.play('idle');
         }
 
         if(keySpace.isDown)
         {
-            this.body.setVelocityY(-50);
+            this.body.setVelocityY(-65);
            // console.log('space');
         }
         else if(keyS.isDown)

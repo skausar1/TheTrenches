@@ -9,12 +9,41 @@ class Collide extends Phaser.Scene {
         this.load.image('water', './assets/Water_Overlay.png');
         this.load.image('plants', './assets/plant.png');
         this.load.image('tiles', './assets/Tiles.png');
-        this.load.image('boat', './assets/Boat.png');
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
+        this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
+       
     }
 
     create(){ 
+
+        //Diver anime declare
+        this.anims.create({
+            key: 'walkLeft', 
+            frames: this.anims.generateFrameNames('Diver', {  
+            prefix: 'DiverV',
+            start: 1,
+            end: 3,
+            suffix: '.png',
+            zeroPad: 1,
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        //Diver anime declare
+        this.anims.create({
+            key: 'idle', 
+            frames: this.anims.generateFrameNames('Diver', {  
+            prefix: 'DiverV',
+            start: 1,
+            end: 1,
+            suffix: '.png',
+            zeroPad: 1,
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+
         //creating clock and timer for timed events
         this.gameClock = new Phaser.Time.Clock(this);
         this.tick = this.gameClock.now;
@@ -43,9 +72,12 @@ class Collide extends Phaser.Scene {
         //create player object
         this.plant1 = new Plant(this, game.config.width/2, game.config.height/2 - 30, 'plants');
         this.plant2 = new Plant(this, 102, 590, 'plants');
-        this.Player = new Player(this, 50, 15, 'player', 0, 10);
+        this.plant3 = new Plant(this, 380, 590, 'plants');
+        this.plant4 = new Plant(this, 500, game.config.height/2 - 30, 'plants');
+        this.Player = new Player(this, 50, 15, 'player', 0, 100).setScale(0.75);
         this.cameras.main.startFollow(this.Player);
-        this.cameras.main.setBounds(0,0, 800, this.map.heightInPixels);
+        this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
+        this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
         this.physics.add.collider(this.Player, this.worldLayer);
         
@@ -89,6 +121,8 @@ class Collide extends Phaser.Scene {
         }
         this.plant1.update();
         this.plant2.update();
+        this.plant3.update();
+        this.plant4.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)

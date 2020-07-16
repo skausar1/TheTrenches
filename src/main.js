@@ -13,7 +13,7 @@ let config = {
             fps: 60,
             debug: true,
             //sets gravity to low drag down
-            gravity: { y: 20 }
+            gravity: { y: 120 }
         }
     },
     scene: [Menu,Play, Collide]
