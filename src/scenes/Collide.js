@@ -77,6 +77,7 @@ class Collide extends Phaser.Scene {
         this.plant4 = new Plant(this, 500, game.config.height/2 - 30, 'plants');
         this.Player = new Player(this, 50, 15, 'player', 0, 100).setScale(0.75);
 
+        //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
         this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000, .8);
         
         const x = this.map.widthInPixels/2;
@@ -101,6 +102,7 @@ class Collide extends Phaser.Scene {
 
 		this.cover.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
 		this.cover.mask.invertAlpha = true
+        //end of mask code
 
 		this.Player.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
 
