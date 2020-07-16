@@ -21,6 +21,7 @@ class Collide extends Phaser.Scene {
         this.oxyTick =  this.gameClock.now;
         
 
+        this.bubbles = this.add.group();
         this.cameras.main.setBackgroundColor("#1E53FF");
 
         this.map = this.make.tilemap({ key: "map" });
@@ -60,8 +61,8 @@ class Collide extends Phaser.Scene {
         // this.water.alpha = 0.35;
         this.O2Display = this.add.text(69, 54, "O2 Left " + Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
 
-          //checking failstate (too little oxygen)
-          this.gameOver = false;
+        //checking failstate (too little oxygen)
+        this.gameOver = false;
     }
 
     update(time, delta){
@@ -69,6 +70,7 @@ class Collide extends Phaser.Scene {
         //update timer
         this.gameClock.update(time, delta);
 
+        this.depthDisplay.text = "Depth " + Math.round(this.Player.y/10) + " meters";
       
 
         if(this.Player.oxy <= 0){
@@ -82,33 +84,12 @@ class Collide extends Phaser.Scene {
         }
         this.plant1.update();
         this.plant2.update();
-        if(this.physics.overlap(this.Player, this.plant1.bubble1) && this.plant1.bubble1.visible)
+        for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
-            this.sound.play('pop');
-            this.Player.addOxy(1);
-            console.log('oxygen =' + this.Player.oxy);
-            this.plant1.bubble1.setVisible(false);
-        }
-        if(this.physics.overlap(this.Player, this.plant1.bubble2) && this.plant1.bubble2.visible)
-        {
-            this.sound.play('pop');
-            this.Player.addOxy(1);
-            console.log('oxygen =' + this.Player.oxy);
-            this.plant1.bubble2.setVisible(false);
-        }
-        if(this.physics.overlap(this.Player, this.plant2.bubble1) && this.plant2.bubble1.visible)
-        {
-            this.sound.play('pop');
-            this.Player.addOxy(1);
-            console.log('oxygen =' + this.Player.oxy);
-            this.plant2.bubble1.setVisible(false);
-        }
-        if(this.physics.overlap(this.Player, this.plant2.bubble2) && this.plant2.bubble2.visible)
-        {
-            this.sound.play('pop');
-            this.Player.addOxy(1);
-            console.log('oxygen =' + this.Player.oxy);
-            this.plant2.bubble2.setVisible(false);
+            if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
+            {
+                this.bubbles.children.entries[i].pop();
+            }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)
         {
@@ -118,8 +99,9 @@ class Collide extends Phaser.Scene {
         }
         if(keyF.isDown)
         {
-            console.log(this.Player.x);
-            console.log(this.Player.y);
+            // console.log(this.Player.x);
+            // console.log(this.Player.y);
+            console.log(this.bubbles)
             
         }
         this.O2Display.text = ("O2 Left " + this.Player.oxy);
