@@ -130,10 +130,10 @@ class Collide extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(69, 25, "O2 Left " + Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+        this.O2Display = this.add.text(69, 25, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
 
         //Displays Depth by y of player
-        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + " meters", this.O2Config).setScrollFactor(0);
+        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
 
         //checking failstate (too little oxygen)
         this.gameOver = false;
@@ -144,7 +144,7 @@ class Collide extends Phaser.Scene {
         //update timer
         this.gameClock.update(time, delta);
 
-        this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + " meters";
+        this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + "M";
       
 
         if(this.Player.oxy <= 0){
@@ -181,7 +181,7 @@ class Collide extends Phaser.Scene {
             console.log(this.bubbles)
             
         }
-        this.O2Display.text = ("O2 Left " + this.Player.oxy);
+        this.O2Display.text = (this.Player.oxy);
 
          // check key input for restart
          if(this.gameOver)
