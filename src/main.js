@@ -11,7 +11,7 @@ let config = {
         default: 'arcade',
         arcade: {
             fps: 60,
-            debug: false,
+            debug: true,
             //sets gravity to low drag down
             gravity: { y: 120 }
         }
