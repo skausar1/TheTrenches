@@ -22,6 +22,8 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxy += oxy;
     }
 
+    //Based on this answer: https://phaser.discourse.group/t/solved-making-a-player-invincible-for-a-brief-time/3211/2
+
     dealDamage(damAmount, enemy) {
         if(!this.isInvincible){
             this.oxy -= damAmount;
@@ -42,11 +44,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         }
     }
 
-    toggleInvincibility() {
-        this.isInvincible = !this.isInvincible;
-        console.log(this.isInvincible);
-        //this.body.setBounce(0);
-    }
 
     update()
     {
