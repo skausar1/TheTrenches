@@ -1,6 +1,14 @@
 class isopod extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, collisionLayer, Player, multiplyer){
+
         super(scene, x, y, texture, frame);
+
+         //config walk anim
+         scene.anims.create({
+            key: 'isopodWalk',
+            frames: scene.anims.generateFrameNumbers('isopod', { start: 0, end: 3, first: 0}),
+            frameRate: 10
+        })
 
         //add object to existing scene
         scene.add.existing(this);
@@ -8,7 +16,7 @@ class isopod extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
         scene.physics.add.collider(this, collisionLayer);
-        scene.physics.add.overlap(this, Player, () => Player.addOxy(-10));
+        scene.physics.add.collider(this, Player, () => Player.dealDamage(10, this));
         //this.aniFrames = [];
         //list of starting frame
         //this.frame = aniFrames[multiplyer-1];
@@ -26,6 +34,7 @@ class isopod extends Phaser.Physics.Arcade.Sprite {
 
     update() {
 
+        this.anims.play('isopodWalk');
         if(this.body.blocked.left || this.body.blocked.right){
             this.dir *= -1;
         }

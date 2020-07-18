@@ -12,7 +12,7 @@ class Collide extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
-        this.load.image('isopod', './assets/Iso1.png');
+        this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
        
     }
 

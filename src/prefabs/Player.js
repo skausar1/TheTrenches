@@ -15,11 +15,37 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.body.setMaxVelocity(120);
         this.body.setCollideWorldBounds(true);
         
-       
+       this.isInvincible = false;
     }
 
     addOxy(oxy) {
         this.oxy += oxy;
+    }
+
+    dealDamage(damAmount, enemy) {
+        if(!this.isInvincible){
+            this.oxy -= damAmount;
+             this.body.setVelocityX(-this.body.velocityX);
+             this.body.setVelocityY(-100);
+            //this.body.setBounce(1);
+            console.log('hit');
+            this.alpha = 0.5;
+            this.isInvincible = true;
+            this.playerReset = this.scene.time.addEvent({
+	        delay: 1500,
+	        callback: ()=>{
+            this.alpha = 1;
+            this.isInvincible = false;
+	},
+	loop: false
+})
+        }
+    }
+
+    toggleInvincibility() {
+        this.isInvincible = !this.isInvincible;
+        console.log(this.isInvincible);
+        //this.body.setBounce(0);
     }
 
     update()
