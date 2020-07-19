@@ -5,8 +5,8 @@ class Plant extends Phaser.GameObjects.Sprite {
         //add object to existing scene
         scene.add.existing(this);
         this.depth = -1;
-        this.bubble1 = new Bubble(scene, this.x, this.y, 'bubble').setScale(0.5);
-        this.bubble2 = new Bubble(scene, this.x, this.y, 'bubble').setScale(0.5);
+        this.bubble1 = new Bubble(scene, this.x + 15, this.y, 'bubble').setScale(0.5);
+        this.bubble2 = new Bubble(scene, this.x + 15, this.y, 'bubble').setScale(0.5);
         scene.bubbles.addMultiple([this.bubble1, this.bubble2]);
         this.startBub = false;
     }

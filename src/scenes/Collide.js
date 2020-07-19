@@ -10,11 +10,14 @@ class Collide extends Phaser.Scene {
         this.load.image('plants', './assets/plant.png');
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
+        this.load.image('oxyUI', './assets/tankBlank.png');
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
+        this.load.tilemapTiledJSON('map2', './assets/Level1.json');
+        this.load.image('tiles2', './assets/basic_tileset.png');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
-       
+        this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
     }
 
     create(){ 
@@ -55,28 +58,36 @@ class Collide extends Phaser.Scene {
         this.bubbles = this.add.group();
         this.cameras.main.setBackgroundColor("#1E53FF");
 
-        this.map = this.make.tilemap({ key: "map" });
-        this.tileset = this.map.addTilesetImage("Tiles", "tiles");
+        this.map = this.make.tilemap({ key: "map2" });
+        this.tileset = this.map.addTilesetImage("AquaSet2", "tiles2");
 
-        this.belowLayer = this.map.createStaticLayer("background", this.tileset, 0, 0);
-        this.worldLayer = this.map.createStaticLayer("Platforms", this.tileset, 0, 0);
+        this.belowLayer = this.map.createStaticLayer("WorldLayer", this.tileset, 0, 0);
 
-        this.worldLayer.setCollisionByProperty({ collides: true });
+        this.belowLayer.setCollisionByProperty({ collide: true });
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
         //Uncomment for debuging platforms
-        // this.worldLayer.renderDebug(this.debugGraphics, {
+        // this.belowLayer.renderDebug(this.debugGraphics, {
         //   tileColor: null, // Color of non-colliding tiles
         //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         // });
+        this.plants = this.add.group({
+            immovable: true
+          });
+
+        // Let's get the spike objects, these are NOT sprites
+        const plantObjects = this.map.getObjectLayer('plants')['objects'];
+
+        // Now we create spikes in our sprite group for each object in our map
+        plantObjects.forEach(plantObject => {
+            const plant = new Plant(this, plantObject.x, plantObject.y - 32, 'plants').setOrigin(0,0);
+            this.plants.add(plant);
+        });
+
 
 
         //create player object
-        this.plant1 = new Plant(this, game.config.width/2, game.config.height/2 - 30, 'plants');
-        this.plant2 = new Plant(this, 102, 590, 'plants');
-        this.plant3 = new Plant(this, 380, 590, 'plants');
-        this.plant4 = new Plant(this, 500, game.config.height/2 - 30, 'plants');
-        this.Player = new Player(this, 50, 15, 'player', 0, 100).setScale(0.75);
+        this.Player = new Player(this, 1000, 15, 'player', 0, 100).setScale(0.75);
 
         //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
         this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000, .8);
@@ -113,12 +124,14 @@ class Collide extends Phaser.Scene {
         this.renderTexture = rt
 
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.worldLayer, this.Player, 1);
-        this.dd1 = new DeadDiver(this, game.config.width/2, game.config.height/2 - 30, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
+        this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
+        this.dd1.setVisible(false);
+
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.physics.add.collider(this.Player, this.worldLayer);
+        this.physics.add.collider(this.Player, this.belowLayer);
         
         //declare movement keys
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -132,10 +145,12 @@ class Collide extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(69, 25, "O2 Left " + Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+        this.O2Display = this.add.text(592, 30, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+        this.O2Display.setColor("black");
+        this.O2Display.setFontSize(14);
 
         //Displays Depth by y of player
-        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + " meters", this.O2Config).setScrollFactor(0);
+        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
 
         //checking failstate (too little oxygen)
         this.gameOver = false;
@@ -146,7 +161,7 @@ class Collide extends Phaser.Scene {
         //update timer
         this.gameClock.update(time, delta);
 
-        this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + " meters";
+        this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + "M";
       
 
         if(this.Player.oxy <= 0){
@@ -158,10 +173,10 @@ class Collide extends Phaser.Scene {
         else{
             console.log("you're dead");
         }
-        this.plant1.update();
-        this.plant2.update();
-        this.plant3.update();
-        this.plant4.update();
+        for(var i = 0; i < this.plants.children.entries.length; i++)
+        {
+            this.plants.children.entries[i].update();
+        }
         this.isopod1.update();
         this.dd1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
@@ -179,12 +194,12 @@ class Collide extends Phaser.Scene {
         }
         if(keyF.isDown)
         {
-            // console.log(this.Player.x);
-            // console.log(this.Player.y);
-            console.log(this.bubbles)
+            console.log(this.Player.x);
+            console.log(this.Player.y);
+            
             
         }
-        this.O2Display.text = ("O2 Left " + this.Player.oxy);
+        this.O2Display.text = (this.Player.oxy);
 
          // check key input for restart
          if(this.gameOver)
