@@ -2,6 +2,9 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     constructor(scene, x, y, texture, frame, oxygen){
         super(scene, x, y, texture, frame);
         this.oxy = oxygen;
+
+        //for updating oxy bar
+        this.maxOxy = oxygen;
         this.cash = 0;
 
         
@@ -9,6 +12,14 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         //add object to existing scene
         scene.add.existing(this);
         scene.physics.add.existing(this);
+
+        //adding sprites oxy bar
+        scene.add.sprite(600, 50, 'oxyUI', 0).setScrollFactor(0);
+        this.oxyBar = scene.add.sprite(579, 50, 'oxyBars', 0).setScrollFactor(0);
+        this.oxyBarMask = scene.add.sprite(579, 50, 'oxyBars', 0).setScrollFactor(0);
+        this.oxyBarMask.visible = false;
+
+        this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(scene, this.oxyBarMask);
 
         this.setDrag(100);
         this.MAX_ACCEL = 200;
@@ -18,8 +29,29 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
        this.isInvincible = false;
     }
 
+    preload() {
+        
+    }
+
     addOxy(oxy) {
-        this.oxy += oxy;
+        if(this.oxy <= this.maxOxy)
+            this.oxy += oxy;
+            this.updateOxyBar(oxy);
+    }
+
+    updateOxyBar(oxy) {
+
+        //find percentage of bar to obscure
+        this.oxyDiff = oxy / this.maxOxy;
+        //multiply this percentage by the height of the bar to determine number of pixels to obscure
+        this.oxyPixelDiff = this.oxyDiff * 64;
+
+
+        if(this.oxy >= 0)
+        {
+            //subtract or add appropriate num of pixels
+            this.oxyBarMask.y -= this.oxyPixelDiff; 
+        }
     }
 
     //Based on this answer: https://phaser.discourse.group/t/solved-making-a-player-invincible-for-a-brief-time/3211/2
@@ -27,6 +59,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     dealDamage(damAmount, enemy) {
         if(!this.isInvincible){
             this.oxy -= damAmount;
+            this.updateOxyBar(damAmount);
              this.body.setVelocityX(-this.body.velocityX);
              this.body.setVelocityY(-100);
             //this.body.setBounce(1);
@@ -49,7 +82,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     {
 
         this.updateCycle += 1;
-
 
         if(this.updateCycle >= 300 && this.canJump <= 0)
             this.canJump = 3;
@@ -90,6 +122,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         {
             this.setVelocityY(80);
         }
+
     }
 
 
