@@ -42,7 +42,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     updateOxyBar(oxy) {
 
         //find percentage of bar to obscure
-        this.oxyDiff = oxy / this.maxOxy;
+        this.oxyDiff = Math.abs(oxy / this.maxOxy);
         //multiply this percentage by the height of the bar to determine number of pixels to obscure
         this.oxyPixelDiff = this.oxyDiff * 64;
 
@@ -50,7 +50,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(this.oxy >= 0)
         {
             //subtract or add appropriate num of pixels
-            this.oxyBarMask.y -= this.oxyPixelDiff; 
+            this.oxyBarMask.y += this.oxyPixelDiff; 
         }
     }
 
@@ -60,9 +60,11 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(!this.isInvincible){
             this.oxy -= damAmount;
             this.updateOxyBar(damAmount);
-             this.body.setVelocityX(-this.body.velocityX);
+            this.body.setBounce(1);
+            // this.body.setVelocityX(-this.body.velocity);
+             console.log(this.body.velocity);
              this.body.setVelocityY(-100);
-            //this.body.setBounce(1);
+            
             console.log('hit');
             this.alpha = 0.5;
             this.isInvincible = true;
@@ -71,6 +73,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 	        callback: ()=>{
             this.alpha = 1;
             this.isInvincible = false;
+            this.body.setBounce(0);
 	},
 	loop: false
 })
