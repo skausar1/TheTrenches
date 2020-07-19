@@ -4,11 +4,13 @@ class isopod extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
 
          //config walk anim
-         scene.anims.create({
+        scene.anims.create({
             key: 'isopodWalk',
             frames: scene.anims.generateFrameNumbers('isopod', { start: 0, end: 3, first: 0}),
             frameRate: 10
         })
+
+
 
         //add object to existing scene
         scene.add.existing(this);

@@ -6,7 +6,8 @@ class Collide extends Phaser.Scene {
     preload() {
         this.load.image('player','./assets/rocket.png');
         this.load.image('bubble', './assets/BOB.png');
-        this.load.image('water', './assets/Water_Overlay.png');
+        this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
+        this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
         this.load.image('plants', './assets/plant.png');
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
@@ -17,6 +18,7 @@ class Collide extends Phaser.Scene {
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
+        this.load.spritesheet('jelly', './assets/giantJelly.png', {frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 3});
         this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
     }
 
@@ -56,7 +58,16 @@ class Collide extends Phaser.Scene {
         
 
         this.bubbles = this.add.group();
-        this.cameras.main.setBackgroundColor("#1E53FF");
+
+        //setting up parallax bg
+        this.cameras.main.setBackgroundColor("#3d3579");
+        this.bgOverlay1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'wall')
+        this.bgOverlay1.setOrigin(0, 0);
+        this.bgOverlay1.setScrollFactor(0);
+
+        this.bgOverlay2 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'water')
+        this.bgOverlay2.setOrigin(0, 0);
+        this.bgOverlay2.setScrollFactor(0);
 
         this.map = this.make.tilemap({ key: "map2" });
         this.tileset = this.map.addTilesetImage("AquaSet2", "tiles2");
@@ -89,8 +100,15 @@ class Collide extends Phaser.Scene {
         //create player object
         this.Player = new Player(this, 1000, 15, 'player', 0, 100).setScale(0.75);
 
+        var texture = this.textures.createCanvas('gradient', 200, 256);
+        var context = texture.getContext();
+        var grd = context.createLinearGradient(0, 0, game.config.width, game.config.height);
+
+        grd.addColorStop(0, '#000000');
+        grd.addColorStop(1, '#FFFFFF');
         //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
-        this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000, .8);
+        this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000, 0.8);
+        this.cover.texture = grd;
         
         const x = this.map.widthInPixels/2;
         const y = this.map.heightInPixels/2;
@@ -123,7 +141,8 @@ class Collide extends Phaser.Scene {
 
         this.renderTexture = rt
 
-        this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.worldLayer, this.Player, 1);
+        this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
+        this.jelly1 = new Jelly(this, 1000, 250, 'jelly', 0, this.belowLayer, this.Player, 1);
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
         this.dd1.setVisible(false);
 
@@ -161,6 +180,16 @@ class Collide extends Phaser.Scene {
         //update timer
         this.gameClock.update(time, delta);
 
+        //update parallax bg
+        this.bgOverlay1.tilePositionX = this.cameras.main.scrollX * 0.3;
+        this.bgOverlay1.tilePositionY = this.cameras.main.scrollY * 0.3;
+
+        this.bgOverlay2.tilePositionX = this.cameras.main.scrollX * 0.7;
+        this.bgOverlay2.tilePositionY = this.cameras.main.scrollY * 0.7;
+
+        //this.bgOverlay.x = this.Player.x;
+        //this.bgOverlay.y = this.Player.y;
+
         this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + "M";
       
 
@@ -178,6 +207,7 @@ class Collide extends Phaser.Scene {
             this.plants.children.entries[i].update();
         }
         this.isopod1.update();
+        this.jelly1.update();
         this.dd1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
@@ -189,7 +219,7 @@ class Collide extends Phaser.Scene {
         if(this.gameClock.now - this.oxyTick >= 2500)
         {
             this.Player.addOxy(-1);
-            console.log('oxygen =' + this.Player.oxy);
+            //console.log('oxygen =' + this.Player.oxy);
             this.oxyTick = this.gameClock.now;
         }
         if(keyF.isDown)
@@ -204,8 +234,8 @@ class Collide extends Phaser.Scene {
          // check key input for restart
          if(this.gameOver)
          {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.O2Config).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, '(F) to Restart or (A) for Menu').setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.O2Config).setOrigin(0.5).setScrollFactor(0);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, '(F) to Restart or (A) for Menu').setOrigin(0.5).setScrollFactor(0);
          }
          if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
             this.scene.restart();
