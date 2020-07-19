@@ -145,7 +145,9 @@ class Collide extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(69, 25, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+        this.O2Display = this.add.text(592, 30, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+        this.O2Display.setColor("black");
+        this.O2Display.setFontSize(14);
 
         //Displays Depth by y of player
         this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
