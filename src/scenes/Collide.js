@@ -126,7 +126,7 @@ class Collide extends Phaser.Scene {
             let enemy;
 
             if(element.properties[0].value == 'jelly')
-                enemy = new Jelly(this, element.x, element.y, 'jelly', 0, this.belowLayer, this.Player, 1);
+                enemy = new Jelly(this, element.x, element.y, 'jelly', 0, this.belowLayer, this.Player, 1).setScale(0.25);
             else if(element.properties[0].value == 'isopod')
                 enemy = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
 
