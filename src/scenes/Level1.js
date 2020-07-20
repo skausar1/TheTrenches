@@ -4,8 +4,7 @@ class Level1 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player','./assets/rocket.png');
-        this.load.image('bubble', './assets/BOB.png');
+        this.load.image('bubble', './assets/bubble.png');
         this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
         this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
         this.load.image('plants', './assets/plant.png');
@@ -35,7 +34,7 @@ class Level1 extends Phaser.Scene {
             suffix: '.png',
             zeroPad: 1,
             }),
-            frameRate: 8,
+            frameRate: 6,
             repeat: -1,
         });
         //Diver anime declare
@@ -110,7 +109,7 @@ class Level1 extends Phaser.Scene {
         //find player spawn
         const playerSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "SpawnPoint");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'player', 0, 100).setScale(0.25);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.5);
 
         const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
         this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);

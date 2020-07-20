@@ -4,12 +4,10 @@ class Level2 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player','./assets/rocket.png');
-        this.load.image('bubble', './assets/BOB.png');
+        this.load.image('bubble', './assets/bubble.png');
         this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
         this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
         this.load.image('plants', './assets/plant.png');
-        this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
         this.load.image('oxyUI', './assets/tankBlank.png');
         this.load.image('tiles2', './assets/tileset_pallete_0.png');
@@ -20,9 +18,8 @@ class Level2 extends Phaser.Scene {
         this.load.spritesheet('crab', './assets/SpiderCrab.png', {frameWidth: 16, frameHeight: 16, startFrame: 0, endFrame: 2});
         this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
 
-        this.load.tilemapTiledJSON('map', './assets/Test2.json');
-        this.load.tilemapTiledJSON('map2', './assets/Level1.json');
-        this.load.tilemapTiledJSON('map3', './assets/Level2.json');
+        this.load.tilemapTiledJSON('map1', './assets/Level1.json');
+        this.load.tilemapTiledJSON('map2', './assets/Level2.json');
     }
 
     create(){ 
@@ -37,7 +34,7 @@ class Level2 extends Phaser.Scene {
             suffix: '.png',
             zeroPad: 1,
             }),
-            frameRate: 8,
+            frameRate: 4,
             repeat: -1,
         });
         //Diver anime declare
@@ -72,7 +69,7 @@ class Level2 extends Phaser.Scene {
         this.bgOverlay2.setOrigin(0, 0);
         this.bgOverlay2.setScrollFactor(0);
 
-        this.map = this.make.tilemap({ key: "map3" });
+        this.map = this.make.tilemap({ key: "map2" });
         this.tileset = this.map.addTilesetImage("AquaSet", "tiles2");
         console.log(this.tileset);
 
@@ -118,7 +115,7 @@ class Level2 extends Phaser.Scene {
         //find player spawn
         const playerSpawn = this.map.findObject("Spawn", obj => obj.name == "player_spawn");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'player', 0, 100).setScale(0.25);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.25);
 
         //this.enemies = ['jelly', 'isopod'];
         
