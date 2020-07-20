@@ -9,8 +9,6 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        //load auido
-        this.load.image('tempBoat', './assets/Boat.png');
     }
     create(){
         //sets the background color of the game
@@ -37,7 +35,7 @@ class Menu extends Phaser.Scene {
 
         this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
         this.sea = this.add.rectangle(0, 300, 640, 485, 0x1E53FF).setOrigin(0,0);
-        this.boat = this.add.image(0, centerY + 15, 'tempBoat');
+        this.boat = this.add.image(0, centerY + 15, 'boat');
         menuConfig.fontSize = '20px';
         startText = this.add.text(centerX, centerY - textSpacer, 'Press Space to Start', menuConfig).setOrigin(0.5);
         startText.alpha = 0;   
@@ -49,7 +47,6 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        this.scene.start("level1");
         if(this.boat.x >= centerX)
         {
             if(startTimer.getRepeatCount()%2 == 0)
@@ -76,7 +73,7 @@ class Menu extends Phaser.Scene {
         }
         else if(this.sea.y <= -5)
         {
-            this.scene.start("collide");
+            this.scene.start("level2");
             start = false;
         }
     }
