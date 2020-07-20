@@ -72,7 +72,7 @@ class Collide extends Phaser.Scene {
         this.bgOverlay2.setScrollFactor(0);
 
         this.map = this.make.tilemap({ key: "map3" });
-        this.tileset = this.map.addTilesetImage("TrenchSet_basic", "tiles2");
+        this.tileset = this.map.addTilesetImage("AquaSet", "tiles2");
         console.log(this.tileset);
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
@@ -90,11 +90,11 @@ class Collide extends Phaser.Scene {
 
 
         //Uncomment for debuging platforms
-        this.belowLayer.renderDebug(this.debugGraphics, {
-          tileColor: null, // Color of non-colliding tiles
-          collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-          faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        // this.belowLayer.renderDebug(this.debugGraphics, {
+        //   tileColor: null, // Color of non-colliding tiles
+        //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+        //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
+        // });
         
         this.plants = this.add.group({
             immovable: true
