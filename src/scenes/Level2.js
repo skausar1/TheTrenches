@@ -12,7 +12,7 @@ class Level2 extends Phaser.Scene {
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
         this.load.image('oxyUI', './assets/tankBlank.png');
-        this.load.image('tiles2', './assets/tileset_pallete_0.png');
+        this.load.image('tiles2', './assets/tileset_basic.png');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
