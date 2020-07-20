@@ -7,7 +7,7 @@ class Bubble extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
         this.setDebugBodyColor(0xFFFF00);
-        this.depth = -3;
+        this.depth = -1;
         this.body.setCircle(this.width/2);
     }
     pop()
