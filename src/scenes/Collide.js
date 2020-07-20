@@ -139,13 +139,9 @@ class Collide extends Phaser.Scene {
 
         var texture = this.textures.createCanvas('gradient', 200, 256);
         var context = texture.getContext();
-        var grd = context.createLinearGradient(0, 0, game.config.width, game.config.height);
 
-        grd.addColorStop(0, '#000000');
-        grd.addColorStop(1, '#FFFFFF');
         //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
-        this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000, 0.8);
-        this.cover.texture = grd;
+        this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000);
         
         const x = this.map.widthInPixels/2;
         const y = this.map.heightInPixels/2;
@@ -165,7 +161,7 @@ class Collide extends Phaser.Scene {
 			key: rt.texture.key,
 			add: false
         })
-        this.cover.setOrigin(.5,0);
+        //this.cover.setOrigin(.5,0);
 
 		this.cover.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
 		this.cover.mask.invertAlpha = true
@@ -173,7 +169,7 @@ class Collide extends Phaser.Scene {
 
 		this.Player.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
 
-		this.light = this.add.circle(0, 0, 40, 0xFFF, 1)
+		this.light = this.add.circle(0, 0, 20, 0xFFF, 1)
 		this.light.visible = false;
 
         this.renderTexture = rt
@@ -183,7 +179,7 @@ class Collide extends Phaser.Scene {
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
         this.dd1.setVisible(false);
 
-        this.cameras.main.setZoom(1.5);
+        this.cameras.main.setZoom(1);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -229,6 +225,7 @@ class Collide extends Phaser.Scene {
         //this.bgOverlay.y = this.Player.y;
 
         this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + "M";
+        this.cover.alpha = this.Player.y/1000;
       
 
         if(this.Player.oxy <= 0){
