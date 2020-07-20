@@ -17,6 +17,7 @@ class Collide extends Phaser.Scene {
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
         this.load.spritesheet('jelly', './assets/giantJelly.png', {frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('crab', './assets/SpiderCrab.png', {frameWidth: 16, frameHeight: 16, startFrame: 0, endFrame: 2});
         this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
 
         this.load.tilemapTiledJSON('map', './assets/Test2.json');
@@ -177,6 +178,7 @@ class Collide extends Phaser.Scene {
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
         this.jelly1 = new Jelly(this, 1000, 250, 'jelly', 0, this.belowLayer, this.Player, 1);
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
+        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(2);
         this.dd1.setVisible(false);
 
         this.cameras.main.setZoom(1);
@@ -244,6 +246,7 @@ class Collide extends Phaser.Scene {
         this.isopod1.update();
         this.jelly1.update();
         this.dd1.update();
+        this.crab1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
