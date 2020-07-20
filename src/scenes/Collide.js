@@ -9,15 +9,19 @@ class Collide extends Phaser.Scene {
         this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
         this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
         this.load.image('plants', './assets/plant.png');
+        this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
         this.load.image('oxyUI', './assets/tankBlank.png');
-        this.load.tilemapTiledJSON('map', './assets/Level1.json');
         this.load.image('tiles2', './assets/basic_tileset.png');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
         this.load.spritesheet('jelly', './assets/giantJelly.png', {frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 3});
         this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
+
+        this.load.tilemapTiledJSON('map', './assets/Test2.json');
+        this.load.tilemapTiledJSON('map2', './assets/Level1.json');
+        this.load.tilemapTiledJSON('map3', './assets/Level2.json');
     }
 
     create(){ 
@@ -62,43 +66,74 @@ class Collide extends Phaser.Scene {
         this.bgOverlay1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'wall')
         this.bgOverlay1.setOrigin(0, 0);
         this.bgOverlay1.setScrollFactor(0);
-        this.bgOverlay1.depth = -3;
 
         this.bgOverlay2 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'water')
         this.bgOverlay2.setOrigin(0, 0);
         this.bgOverlay2.setScrollFactor(0);
-        this.bgOverlay2.depth = -2;
 
-        this.map = this.make.tilemap({ key: "map" });
-        this.tileset = this.map.addTilesetImage("AquaSet", "tiles2");
+        this.map = this.make.tilemap({ key: "map3" });
+        this.tileset = this.map.addTilesetImage("TrenchSet_basic", "tiles2");
+        console.log(this.tileset);
 
-        this.belowLayer = this.map.createStaticLayer("WorldLayer", this.tileset, 0, 0);
+        this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
 
-        this.belowLayer.setCollisionByProperty({ collides: true });
+        this.belowLayer = this.map.createStaticLayer("Collision", this.tileset, 0, 0);
+        console.log(this.belowLayer)
+
+        this.belowLayer.setCollisionByProperty({ collide: true });
+       
+
+        
+        
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
+
+
+
         //Uncomment for debuging platforms
-        // this.belowLayer.renderDebug(this.debugGraphics, {
-        //   tileColor: null, // Color of non-colliding tiles
-        //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-        //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        // });
+        this.belowLayer.renderDebug(this.debugGraphics, {
+          tileColor: null, // Color of non-colliding tiles
+          collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+          faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
+        });
+        
         this.plants = this.add.group({
             immovable: true
           });
 
-        // place plants in
+        // Let's get the spike objects, these are NOT sprites
         const plantObjects = this.map.getObjectLayer('plants')['objects'];
 
-        // Now we create plants as sprites
+        // Now we create spikes in our sprite group for each object in our map
         plantObjects.forEach(plantObject => {
             const plant = new Plant(this, plantObject.x, plantObject.y - 32, 'plants').setOrigin(0,0);
             this.plants.add(plant);
         });
 
-        this.spawnPoint = this.map.getObjectLayer('SpawnPoint')['objects'];
 
-        this.spawnPoint.forEach(point => {
-            this.Player = new Player(this, point.x, point.y, 'player', 0, 100).setScale(0.75);
+        //find player spawn
+        const playerSpawn = this.map.findObject("Spawn", obj => obj.name == "player_spawn");
+        //create player object
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'player', 0, 100).setScale(0.25);
+
+        //this.enemies = ['jelly', 'isopod'];
+        
+        let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
+
+        this.enemies = this.add.group();
+        enemyObjects.map((element) => {
+
+            console.log(element.properties[0].value);
+            let enemy;
+
+            if(element.properties[0].value == 'jelly')
+                enemy = new Jelly(this, element.x, element.y, 'jelly', 0, this.belowLayer, this.Player, 1);
+            else if(element.properties[0].value == 'isopod')
+                enemy = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
+
+            
+            console.log(enemy);
+
+            this.enemies.add(enemy);
         })
 
 
@@ -148,6 +183,7 @@ class Collide extends Phaser.Scene {
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
         this.dd1.setVisible(false);
 
+        this.cameras.main.setZoom(1.5);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
