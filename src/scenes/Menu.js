@@ -73,7 +73,7 @@ class Menu extends Phaser.Scene {
         }
         else if(this.sea.y <= -5)
         {
-            this.scene.start("level2");
+            this.scene.start("level1");
             start = false;
         }
     }
