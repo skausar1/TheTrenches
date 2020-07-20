@@ -9,11 +9,9 @@ class Collide extends Phaser.Scene {
         this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
         this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
         this.load.image('plants', './assets/plant.png');
-        this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
         this.load.image('oxyUI', './assets/tankBlank.png');
-        this.load.tilemapTiledJSON('map', './assets/Test2.json');
-        this.load.tilemapTiledJSON('map2', './assets/Level1.json');
+        this.load.tilemapTiledJSON('map', './assets/Level1.json');
         this.load.image('tiles2', './assets/basic_tileset.png');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
@@ -64,17 +62,19 @@ class Collide extends Phaser.Scene {
         this.bgOverlay1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'wall')
         this.bgOverlay1.setOrigin(0, 0);
         this.bgOverlay1.setScrollFactor(0);
+        this.bgOverlay1.depth = -3;
 
         this.bgOverlay2 = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'water')
         this.bgOverlay2.setOrigin(0, 0);
         this.bgOverlay2.setScrollFactor(0);
+        this.bgOverlay2.depth = -2;
 
-        this.map = this.make.tilemap({ key: "map2" });
-        this.tileset = this.map.addTilesetImage("AquaSet2", "tiles2");
+        this.map = this.make.tilemap({ key: "map" });
+        this.tileset = this.map.addTilesetImage("AquaSet", "tiles2");
 
         this.belowLayer = this.map.createStaticLayer("WorldLayer", this.tileset, 0, 0);
 
-        this.belowLayer.setCollisionByProperty({ collide: true });
+        this.belowLayer.setCollisionByProperty({ collides: true });
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
         //Uncomment for debuging platforms
         // this.belowLayer.renderDebug(this.debugGraphics, {
@@ -86,19 +86,21 @@ class Collide extends Phaser.Scene {
             immovable: true
           });
 
-        // Let's get the spike objects, these are NOT sprites
+        // place plants in
         const plantObjects = this.map.getObjectLayer('plants')['objects'];
 
-        // Now we create spikes in our sprite group for each object in our map
+        // Now we create plants as sprites
         plantObjects.forEach(plantObject => {
             const plant = new Plant(this, plantObject.x, plantObject.y - 32, 'plants').setOrigin(0,0);
             this.plants.add(plant);
         });
 
+        this.spawnPoint = this.map.getObjectLayer('SpawnPoint')['objects'];
 
+        this.spawnPoint.forEach(point => {
+            this.Player = new Player(this, point.x, point.y, 'player', 0, 100).setScale(0.75);
+        })
 
-        //create player object
-        this.Player = new Player(this, 1000, 15, 'player', 0, 100).setScale(0.75);
 
         var texture = this.textures.createCanvas('gradient', 200, 256);
         var context = texture.getContext();
