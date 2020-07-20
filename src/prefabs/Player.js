@@ -25,6 +25,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.MAX_ACCEL = 200;
         this.body.setMaxVelocity(120);
         this.body.setCollideWorldBounds(true);
+        this.isLeft = false;
         
        this.isInvincible = false;
     }
@@ -94,6 +95,8 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
             this.body.setAccelerationX(-this.MAX_ACCEL);
             this.anims.play('walkLeft', true);
             this.resetFlip();
+            this.isLeft = true;
+
             //console.log("A is down");
         }
         else if(keyD.isDown)
@@ -101,6 +104,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
             this.setFlip(true, false);
             this.body.setAccelerationX(this.MAX_ACCEL);
             this.anims.play('walkLeft', true);
+            this.isLeft = false;
             //console.log("D is down");
         }
         else if(this.body.velocity.x != 0)

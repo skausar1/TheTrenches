@@ -137,10 +137,6 @@ class Collide extends Phaser.Scene {
             this.enemies.add(enemy);
         })
 
-
-        var texture = this.textures.createCanvas('gradient', 200, 256);
-        var context = texture.getContext();
-
         //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
         this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000);
         
@@ -171,7 +167,10 @@ class Collide extends Phaser.Scene {
 		this.Player.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage)
 
 		this.light = this.add.circle(0, 0, 20, 0xFFF, 1)
-		this.light.visible = false;
+        this.light.visible = false;
+        this.light2 = this.add.triangle(this.Player.x,this.Player.y, 0, 0, 80, 15, 80, -15, 0xFFF)
+        this.light2.visible;
+        console.log(this.light2);
 
         this.renderTexture = rt
 
@@ -203,6 +202,7 @@ class Collide extends Phaser.Scene {
         this.O2Display = this.add.text(592, 30, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
         this.O2Display.setColor("black");
         this.O2Display.setFontSize(14);
+        this.O2Display.depth = 5;
 
         //Displays Depth by y of player
         this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
@@ -288,6 +288,17 @@ class Collide extends Phaser.Scene {
 
 		this.renderTexture.clear()
         this.renderTexture.draw(this.light, x, y)
+        if(this.Player.isLeft)
+        {
+            this.light2.scaleX = -1;
+            this.renderTexture.draw(this.light2, x - 20, y + 15)
+        }
+        else
+        {
+            this.light2.scaleX = 1;
+            this.renderTexture.draw(this.light2, x + 20, y + 15)
+        }
+        
     }
 
 }
