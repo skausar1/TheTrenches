@@ -14,9 +14,9 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         scene.physics.add.existing(this);
 
         //adding sprites oxy bar
-        scene.add.sprite(505, 110, 'oxyUI', 0).setScrollFactor(0).setScale(0.75);
-        this.oxyBar = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75);
-        this.oxyBarMask = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75);
+        scene.add.sprite(505, 110, 'oxyUI', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
+        this.oxyBar = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
+        this.oxyBarMask = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
         this.oxyBarMask.visible = false;
 
         this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(scene, this.oxyBarMask);

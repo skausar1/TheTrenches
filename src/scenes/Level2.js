@@ -12,7 +12,7 @@ class Level2 extends Phaser.Scene {
         this.load.image('tiles', './assets/Tiles.png');
         this.load.image('fossil', './assets/Fossil.png');
         this.load.image('oxyUI', './assets/tankBlank.png');
-        this.load.image('tiles2', './assets/basic_tileset.png');
+        this.load.image('tiles2', './assets/tileset_pallete_0.png');
         this.load.audio('pop', './assets/bubblePopRefined.wav');
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
@@ -82,12 +82,16 @@ class Level2 extends Phaser.Scene {
         console.log(this.belowLayer)
 
         this.belowLayer.setCollisionByProperty({ collide: true });
-       
 
-        
-        
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
 
+        const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
+        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
+        this.physics.add.existing(this.levelExit);
+        this.levelExit.body.setAllowGravity(false);
+
+        //adding function so that overlapping triggers text to display
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level3"), null, this);
 
 
         //Uncomment for debuging platforms
@@ -130,6 +134,8 @@ class Level2 extends Phaser.Scene {
                 enemy = new Jelly(this, element.x, element.y, 'jelly', 0, this.belowLayer, this.Player, 1).setScale(0.25);
             else if(element.properties[0].value == 'isopod')
                 enemy = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
+            else if(element.properties[0].value == 'crab')
+                enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1);
 
             
             console.log(enemy);

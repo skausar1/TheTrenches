@@ -11,7 +11,6 @@ class Crab extends Phaser.Physics.Arcade.Sprite {
             repeat: true
         })
 
-        console.log(this.jellyWalk);
         //add object to existing scene
         scene.add.existing(this);
         //add physics to object

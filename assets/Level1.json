@@ -40,6 +40,23 @@
                  "width":0,
                  "x":550.310845037992,
                  "y":71.3792309463504
+                }, 
+                {
+                 "height":43,
+                 "id":14,
+                 "name":"level_exit",
+                 "properties":[
+                        {
+                         "name":"next",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":347.666666666667,
+                 "x":1314.16666666667,
+                 "y":1871.83333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -130,7 +147,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":14,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.1",

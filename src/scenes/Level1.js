@@ -112,6 +112,14 @@ class Level1 extends Phaser.Scene {
         //create player object
         this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'player', 0, 100).setScale(0.25);
 
+        const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
+        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
+        this.physics.add.existing(this.levelExit);
+        this.levelExit.body.setAllowGravity(false);
+
+        //adding function so that overlapping triggers text to display
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level2"), null, this);
+
         //this.enemies = ['jelly', 'isopod'];
         
         // let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
@@ -173,7 +181,7 @@ class Level1 extends Phaser.Scene {
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
         this.jelly1 = new Jelly(this, 1000, 250, 'jelly', 0, this.belowLayer, this.Player, 1);
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
-        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(2);
+        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1);
         this.dd1.setVisible(false);
 
         this.cameras.main.setZoom(1.5);
@@ -195,10 +203,9 @@ class Level1 extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75);
+        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75).setDepth(101);
         this.O2Display.setColor("black");
         this.O2Display.setFontSize(14);
-        this.O2Display.depth = 5;
 
         //Displays Depth by y of player
         this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
@@ -292,6 +299,17 @@ class Level1 extends Phaser.Scene {
         else
         {
             this.light2.scaleX = 1;
+            this.renderTexture.draw(this.light2, x + 20, y + 15)
+        }
+
+        if(this.Player.isDown)
+        {
+            this.light2.scaleY = -1;
+            this.renderTexture.draw(this.light2, x + 20, y - 15)
+        }
+        else if(this.Player.isUp)
+        {
+            this.light2.scaleY = 1;
             this.renderTexture.draw(this.light2, x + 20, y + 15)
         }
         
