@@ -168,7 +168,7 @@ class Collide extends Phaser.Scene {
 		this.light = this.add.circle(0, 0, 20, 0xFFF, 1)
         this.light.visible = false;
         this.light2 = this.add.triangle(this.Player.x,this.Player.y, 0, 0, 80, 15, 80, -15, 0xFFF)
-        this.light2.visible;
+        this.light2.visible = false;
         console.log(this.light2);
 
         this.renderTexture = rt
@@ -178,7 +178,7 @@ class Collide extends Phaser.Scene {
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
         this.dd1.setVisible(false);
 
-        this.cameras.main.setZoom(1);
+        this.cameras.main.setZoom(1.5);
         this.cameras.main.startFollow(this.Player);
         this.cameras.main.setBounds(0,0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -197,7 +197,7 @@ class Collide extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(592, 30, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0);
+        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75);
         this.O2Display.setColor("black");
         this.O2Display.setFontSize(14);
         this.O2Display.depth = 5;
