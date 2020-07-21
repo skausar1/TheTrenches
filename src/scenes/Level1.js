@@ -4,6 +4,25 @@ class Level1 extends Phaser.Scene {
     }
 
     preload() {
+        this.load.image('player','./assets/rocket.png');
+        this.load.image('bubble', './assets/BOB.png');
+        this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
+        this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
+        this.load.image('plants', './assets/plant.png');
+        this.load.image('tiles', './assets/basic_tileset.png');
+        this.load.image('fossil', './assets/Fossil.png');
+        this.load.image('oxyUI', './assets/tankBlank.png');
+        this.load.audio('pop', './assets/bubblePopRefined.wav');
+        this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
+        this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
+        this.load.spritesheet('jelly', './assets/giantJelly.png', {frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('crab', './assets/SpiderCrab.png', {frameWidth: 16, frameHeight: 16, startFrame: 0, endFrame: 2});
+        this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
+
+        this.load.tilemapTiledJSON('map1', './assets/Level1.json');
+        this.load.tilemapTiledJSON('map2', './assets/Level2.json');
+
+        //this.
     }
 
     create(){ 
@@ -18,7 +37,7 @@ class Level1 extends Phaser.Scene {
             suffix: '.png',
             zeroPad: 1,
             }),
-            frameRate: 6,
+            frameRate: 8,
             repeat: -1,
         });
         //Diver anime declare
@@ -93,15 +112,7 @@ class Level1 extends Phaser.Scene {
         //find player spawn
         const playerSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "SpawnPoint");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.5);
-
-        const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
-        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
-        this.physics.add.existing(this.levelExit);
-        this.levelExit.body.setAllowGravity(false);
-
-        //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level2"), null, this);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'player', 0, 100).setScale(0.25);
 
         //this.enemies = ['jelly', 'isopod'];
         
@@ -164,7 +175,7 @@ class Level1 extends Phaser.Scene {
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
         this.jelly1 = new Jelly(this, 1000, 250, 'jelly', 0, this.belowLayer, this.Player, 1);
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
-        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1);
+        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(2);
         this.dd1.setVisible(false);
 
         this.cameras.main.setZoom(1.5);
@@ -186,9 +197,10 @@ class Level1 extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75).setDepth(101);
+        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75);
         this.O2Display.setColor("black");
         this.O2Display.setFontSize(14);
+        this.O2Display.depth = 5;
 
         //Displays Depth by y of player
         this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
@@ -282,17 +294,6 @@ class Level1 extends Phaser.Scene {
         else
         {
             this.light2.scaleX = 1;
-            this.renderTexture.draw(this.light2, x + 20, y + 15)
-        }
-
-        if(this.Player.isDown)
-        {
-            this.light2.scaleY = -1;
-            this.renderTexture.draw(this.light2, x + 20, y - 15)
-        }
-        else if(this.Player.isUp)
-        {
-            this.light2.scaleY = 1;
             this.renderTexture.draw(this.light2, x + 20, y + 15)
         }
         
