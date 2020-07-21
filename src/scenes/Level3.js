@@ -107,7 +107,7 @@ class Level3 extends Phaser.Scene {
         this.enemies = this.add.group();
         enemyObjects.map((element) => {
 
-            console.log(element.properties[0].value);
+           // console.log(element.properties[0].value);
             let enemy;
 
             if(element.properties[0].value == 'jelly')
@@ -118,7 +118,7 @@ class Level3 extends Phaser.Scene {
                 enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1);
 
             
-            console.log(enemy);
+            //console.log(enemy);
 
             this.enemies.add(enemy);
         })
@@ -194,6 +194,21 @@ class Level3 extends Phaser.Scene {
         this.gameOver = false;
 
         this.gameOverIsDisplayed = false;
+
+        //create random music array
+        //reference here: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/fadevolume/
+        this.randomSFX = ['random1', 'random2', 'random3', 'random4', 'random5', 'random6'];
+        this.rSFXTimer = this.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
+    }
+
+    onEvent(){
+            let clip = Phaser.Math.RND.pick(this.randomSFX);
+            var music = this.sound.add(clip);
+            music.setRate(Phaser.Math.Between(0.5, 2));
+            music.setVolume(Phaser.Math.Between(0.125, 1));
+            console.log(music);
+            music.play();
+            this.rSFXTimer.reset({delay: Phaser.Math.Between( 2000, 16000), callback: () => this.onEvent(), callbackScope: this, repeat: 1});
     }
 
     update(time, delta){
@@ -235,6 +250,10 @@ class Level3 extends Phaser.Scene {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
             {
                 this.bubbles.children.entries[i].pop();
+            }
+            else if(this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
+            {
+                this.bubbles.children.popCollide();
             }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)

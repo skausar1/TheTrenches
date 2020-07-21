@@ -81,6 +81,14 @@ class Load extends Phaser.Scene {
 
         //audio
         this.load.audio('pop', './assets/bubblePopRefined.wav');
+        this.load.audio('random1', './assets/OOF distorted MK1.mp3');
+        this.load.audio('random2', './assets/woodPeckerFrom OuterSpace.mp3');
+        this.load.audio('random3', './assets/ungodlyMonster.mp3');
+        this.load.audio('random4', './assets/randAlienNoise.mp3');
+        this.load.audio('random5', './assets/dTapeUnroll.mp3');
+        this.load.audio('random6', './assets/dPillFlicking.mp3');
+        this.context = new AudioContext();
+
 
         //misc
         this.load.image('boat', './assets/Boat.png');
@@ -100,7 +108,7 @@ class Load extends Phaser.Scene {
         });
                     
         this.load.on('fileprogress', function (file) {
-            console.log(file.src);
+            //console.log(file.src);
             assetText.setText('Loading asset: ' + file.key);
         });
          

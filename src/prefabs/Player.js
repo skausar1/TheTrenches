@@ -19,8 +19,10 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxyBarMask = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
         this.oxyBarMask.visible = false;
 
+        //add mask for oxy bar
         this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(scene, this.oxyBarMask);
 
+        //edit sprite physics behavior
         this.setDrag(100);
         this.MAX_ACCEL = 200;
         this.body.setMaxVelocity(120);
@@ -28,7 +30,29 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.isLeft = false;
         
        this.isInvincible = false;
+
+
+       //create quip machine
+       this.quips = ['By Jove!', 'Good heavens!', 'This is simply marvelous!', 'I hope I can recall the way out...', 'Goodness gracious!', 'What in the name of science is this?']
+       //add timer for quip machine
+
+     this.quipTimer = this.scene.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
     }
+
+    onEvent(){
+            let quip = Phaser.Math.RND.pick(this.quips);
+            let passage = this.scene.add.text(this.x - 75, this.y - 50, quip, {font: 'Courier', fontSize: '16px'});
+
+               var delay = this.scene.time.delayedCall(5000, () => this.scene.tweens.add({
+                  targets: passage,
+                  alpha: 0,
+                  duration: 5000,
+                  ease: 'Power2'
+                }, this), null, this);
+
+            this.quipTimer.reset({delay: Phaser.Math.Between( 15000, 30000), callback: () => this.onEvent(), callbackScope: this, repeat: 1});
+    }
+
 
     preload() {
         

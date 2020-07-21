@@ -17,5 +17,9 @@ class Bubble extends Phaser.Physics.Arcade.Sprite {
         console.log('oxygen =' + this.scene.Player.oxy);
         this.setVisible(false);
     }
+    popCollide()
+    {
+        this.setVisible(false);
+    }
 
 }

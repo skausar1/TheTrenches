@@ -197,6 +197,20 @@ class Level2 extends Phaser.Scene {
         this.gameOver = false;
 
         this.gameOverIsDisplayed = false;
+
+        //create random music array
+        //reference here: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/fadevolume/
+        this.randomSFX = ['random1', 'random2', 'random3', 'random4', 'random5', 'random6'];
+        this.rSFXTimer = this.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
+    }
+
+    onEvent(){
+            let clip = Phaser.Math.RND.pick(this.randomSFX);
+            var music = this.sound.add(clip);
+            music.setRate(Phaser.Math.between(0.5, 2));
+            music.setVolume(Phaser.Math.between(0.125, 1));
+            music.play();
+            this.rSFXTimer.reset({delay: Phaser.Math.Between( 2000, 16000), callback: () => this.onEvent(), callbackScope: this, repeat: 1});
     }
 
     update(time, delta){
@@ -244,6 +258,10 @@ class Level2 extends Phaser.Scene {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
             {
                 this.bubbles.children.entries[i].pop();
+            }
+            else if(this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
+            {
+                this.bubbles.children.popCollide();
             }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)
