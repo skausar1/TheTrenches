@@ -3,13 +3,7 @@ class Load extends Phaser.Scene {
         super("load" );
     }
     preload() {
-        this.load.audio('dPillFlicking', './assets/dPillFlicking.mp3');
-        this.load.audio('dTapeUnroll', './assets/dTapeUnroll.mp3');
-        this.load.audio('oofDistortedMK1', './assets/oofDistortedMK1.mp3');
-        this.load.audio('randAlienNoise', './assets/randAlienNoise.mp3');
-        this.load.audio('ungodlyMonster', './assets/ungodlyMonster.mp3');
-        this.load.audio('woodPeckerFromOuterSpace', './assets/woodPeckerFromOuterSpace.mp3');
-        
+
         var progressBar = this.add.graphics();
         var progressBox = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
