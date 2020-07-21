@@ -59,10 +59,13 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     }
 
     addOxy(oxy) {
-        if(this.oxy <= this.maxOxy)
+        if(this.oxy + oxy <= this.maxOxy)
         {
             this.oxy += oxy;
             this.updateOxyBar(oxy);
+        }
+        else{
+            this.oxy = this.maxOxy;
         }
     }
 
@@ -71,13 +74,18 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         //find percentage of bar to obscure
         this.oxyDiff = oxy / this.maxOxy;
         //multiply this percentage by the height of the bar to determine number of pixels to obscure
-        this.oxyPixelDiff = this.oxyDiff * 64*.75;
+        this.oxyPixelDiff = this.oxyDiff * 64 * .75;
+        this.oxyPixelDiff2 = this.oxyDiff * 64;
 
 
-        if(this.oxy >= 0)
+        if(oxy < 0)
         {
             //subtract or add appropriate num of pixels
             this.oxyBarMask.y -= this.oxyPixelDiff/2; 
+        }
+        else
+        {
+            this.oxyBarMask.y -= this.oxyPixelDiff/1.15;
         }
     }
 
