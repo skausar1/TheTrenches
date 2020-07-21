@@ -55,8 +55,12 @@ class Level4 extends Phaser.Scene {
 
         this.map = this.make.tilemap({ key: "map4" });
         this.tileset = this.map.addTilesetImage("Trenchset_pallete_1", "tiles_pallete_1");
+        this.tilesetlarge =  this.map.addTilesetImage("pallete_1_EXTRALARGE", "tiles_pallete_1_large");
+        this.tilesetextralarge =  this.map.addTilesetImage("pallete_1_EXTRAExtraLARGE", "tiles_pallete_1_extralarge");
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
+        this.midLayer1 = this.map.createStaticLayer("Midground", this.tilesetextralarge, 0, 0);
+        this.midLayer2 = this.map.createStaticLayer("Midground2", this.tilesetextralarge, 0, 0);
 
         this.belowLayer = this.map.createStaticLayer("Collision", this.tileset, 0, 0);
         console.log(this.belowLayer);
