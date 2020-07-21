@@ -47,23 +47,45 @@ class Load extends Phaser.Scene {
         //
         //
         //
-        this.load.image('boat', './assets/Boat.png');
-        this.load.image('bubble', './assets/bubble.png');
+
+        //backgrounds
         this.bgTile1 = this.load.image('water', './assets/Water_Overlay.png');
         this.bgTile2 = this.load.image('wall', './assets/pxBG1.png');
+
+        //interactable assets
+        this.load.image('bubble', './assets/bubble.png');
         this.load.image('plants', './assets/plant.png');
-        this.load.image('tiles', './assets/basic_tileset.png');
         this.load.image('fossil', './assets/Fossil.png');
+        
+        //UI
         this.load.image('oxyUI', './assets/tankBlank.png');
-        this.load.audio('pop', './assets/bubblePopRefined.wav');
+
+        //tilesets
+        this.load.image('tiles', './assets/basic_tileset.png');
+        this.load.image('tiles_pallete_1', './assets/tileset_pallete_1.png');
+        this.load.image('tiles_pallete_1_large', './assets/pallete_1_large_props.png');
+        this.load.image('tiles_pallete_1_extralarge', './assets/pallete_1_EXTRALARGE.png');
+
+
+        //animation sheets
         this.load.atlas('Diver','./assets/DiverV.png','./assets/DiverV.json');
         this.load.spritesheet('isopod', './assets/Iso1.png', {frameWidth: 32, frameHeight: 16, startFrame: 0, endFrame: 4});
         this.load.spritesheet('jelly', './assets/giantJelly.png', {frameWidth: 128, frameHeight: 128, startFrame: 0, endFrame: 3});
         this.load.spritesheet('crab', './assets/SpiderCrab.png', {frameWidth: 16, frameHeight: 16, startFrame: 0, endFrame: 2});
         this.load.spritesheet('oxyBars', './assets/OxyGaugesTrimmed.png', {frameWidth: 11, frameHeight: 64, starFrame: 0, endFrame: 3});
 
+        //maps
         this.load.tilemapTiledJSON('map1', './assets/Level1.json');
         this.load.tilemapTiledJSON('map2', './assets/Level2.json');
+        this.load.tilemapTiledJSON('map2', './assets/Level3.json');
+
+        //audio
+        this.load.audio('pop', './assets/bubblePopRefined.wav');
+
+        //misc
+        this.load.image('boat', './assets/Boat.png');
+        
+ 
         //
         //
         //
