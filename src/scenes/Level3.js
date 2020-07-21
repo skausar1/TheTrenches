@@ -205,7 +205,7 @@ class Level3 extends Phaser.Scene {
             let clip = Phaser.Math.RND.pick(this.randomSFX);
             var music = this.sound.add(clip);
             music.setRate(Phaser.Math.Between(0.5, 2));
-            music.setVolume(Phaser.Math.Between(0.125, 1));
+            music.setVolume(Phaser.Math.Between(0.125, 0.25));
             console.log(music);
             music.play();
             this.rSFXTimer.reset({delay: Phaser.Math.Between( 2000, 16000), callback: () => this.onEvent(), callbackScope: this, repeat: 1});
