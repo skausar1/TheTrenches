@@ -195,6 +195,8 @@ class Level1 extends Phaser.Scene {
 
         //checking failstate (too little oxygen)
         this.gameOver = false;
+
+        this.gameOverIsDisplayed = false;
     }
 
     update(time, delta){
@@ -254,13 +256,17 @@ class Level1 extends Phaser.Scene {
             
         }
         this.O2Display.text = (this.Player.oxy);
+        
 
          // check key input for restart
          if(this.gameOver)
          {
+            if(!gameOverIsDisplayed){
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.O2Config).setOrigin(0.5).setScrollFactor(0);
             this.add.text(game.config.width/2, game.config.height/2 + 64, '(F) to Restart or (A) for Menu').setOrigin(0.5).setScrollFactor(0);
-         }
+            this.gameOverIsDisplayed = true;
+        }
+        }
          if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
             this.scene.restart();
         }
