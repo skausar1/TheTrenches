@@ -101,7 +101,7 @@ class Load extends Phaser.Scene {
         //end Assest load
 
         this.load.on('progress', function (value) {
-            console.log(value);
+           // console.log(value);
             progressBar.clear();
             progressBar.fillStyle(0xffffff);
             progressBar.fillRect(163, 224, 300 * value, 30);

@@ -12,7 +12,7 @@ class Jelly extends Phaser.Physics.Arcade.Sprite {
         })
 
 
-        console.log(this.jellyWalk);
+       
         //add object to existing scene
         scene.add.existing(this);
         //add physics to object

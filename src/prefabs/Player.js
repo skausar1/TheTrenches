@@ -41,7 +41,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
-            let passage = this.scene.add.text(this.x - 75, this.y - 50, quip, {font: 'Courier', fontSize: '16px'}).setScrollFactor(0);
+            let passage = this.scene.add.text(this.x - 25, this.y - 25, quip, {font: 'Courier', fontSize: '16px'}).setScrollFactor(0);
 
                var delay = this.scene.time.delayedCall(5000, () => this.scene.tweens.add({
                   targets: passage,
