@@ -236,7 +236,7 @@ class Level1 extends Phaser.Scene {
         this.crab1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
-            if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
+            if((this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible) ||this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
             {
                 this.bubbles.children.entries[i].pop();
             }

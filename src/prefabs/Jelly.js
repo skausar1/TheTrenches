@@ -8,7 +8,7 @@ class Jelly extends Phaser.Physics.Arcade.Sprite {
             key: 'jellyFloat',
             frames: this.scene.anims.generateFrameNumbers('jelly', { start: 0, end: 3, first: 0}),
             frameRate: 3,
-            repeat: true
+            repeat: 1
         })
 
 
@@ -45,7 +45,7 @@ class Jelly extends Phaser.Physics.Arcade.Sprite {
     moveJelly() {
         this.body.setAccelerationX(Phaser.Math.Between(-2, 2));
         this.body.setAccelerationY(Phaser.Math.Between(-2, 2));
-        console.log('timer called');
+        this.anims.play('jellyFloat', true);
     }
 
     update() {
