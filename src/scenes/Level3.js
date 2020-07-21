@@ -253,7 +253,7 @@ class Level3 extends Phaser.Scene {
             }
             else if(this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
             {
-                this.bubbles.children.popCollide();
+                this.bubbles.children.entries[i].setVisible(false);
             }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)

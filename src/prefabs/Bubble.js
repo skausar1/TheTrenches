@@ -13,10 +13,11 @@ class Bubble extends Phaser.Physics.Arcade.Sprite {
     pop()
     {
         this.scene.sound.play('pop');
-        this.scene.Player.addOxy(1);
+        this.scene.Player.addOxy(5);
         console.log('oxygen =' + this.scene.Player.oxy);
         this.setVisible(false);
     }
+
     popCollide()
     {
         this.setVisible(false);

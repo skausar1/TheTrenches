@@ -60,8 +60,10 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     addOxy(oxy) {
         if(this.oxy <= this.maxOxy)
+        {
             this.oxy += oxy;
             this.updateOxyBar(oxy);
+        }
     }
 
     updateOxyBar(oxy) {
