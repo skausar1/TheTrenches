@@ -96,12 +96,14 @@ class Level1 extends Phaser.Scene {
         this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.5);
 
         const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
-        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
+        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 400, 400).setOrigin(0,0);
         this.physics.add.existing(this.levelExit);
         this.levelExit.body.setAllowGravity(false);
+        
 
         //adding function so that overlapping triggers text to display
         this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('level2', null, this));
+
 
         //this.enemies = ['jelly', 'isopod'];
         
@@ -252,10 +254,6 @@ class Level1 extends Phaser.Scene {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
             {
                 this.bubbles.children.entries[i].pop();
-            }
-            else if(this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
-            {
-                this.bubbles.children.entries[i].setVisible(false);
             }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)
