@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"Level3.json"
+        }
+    },
  "height":50,
  "infinite":false,
  "layers":[
@@ -32,6 +40,89 @@
         }, 
         {
          "draworder":"topdown",
+         "id":6,
+         "name":"plants",
+         "objects":[
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":77.3333,
+                 "y":1150.67
+                }, 
+                {
+                 "height":0,
+                 "id":13,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":559.333,
+                 "y":1332.67
+                }, 
+                {
+                 "height":0,
+                 "id":14,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":300,
+                 "y":1050.67
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":174,
+                 "y":566
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":488,
+                 "y":472.667
+                }, 
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":-390,
+                 "y":1203.33
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":5,
          "name":"Spawn",
          "objects":[
@@ -51,7 +142,7 @@
                  "visible":true,
                  "width":0,
                  "x":646,
-                 "y":820.666666666667
+                 "y":820.667
                 }, 
                 {
                  "height":0,
@@ -86,8 +177,8 @@
                  "type":"spawnPoint",
                  "visible":true,
                  "width":0,
-                 "x":79.3333333333333,
-                 "y":219.333333333333
+                 "x":79.3333,
+                 "y":219.333
                 }, 
                 {
                  "height":0,
@@ -104,7 +195,7 @@
                  "type":"enemySpawn",
                  "visible":true,
                  "width":0,
-                 "x":240.666666666667,
+                 "x":240.667,
                  "y":696
                 }, 
                 {
@@ -122,8 +213,8 @@
                  "type":"enemySpawn",
                  "visible":true,
                  "width":0,
-                 "x":398.666666666667,
-                 "y":891.333333333333
+                 "x":398.667,
+                 "y":891.333
                 }, 
                 {
                  "height":0,
@@ -141,7 +232,7 @@
                  "visible":true,
                  "width":0,
                  "x":364,
-                 "y":1021.33333333333
+                 "y":1021.33
                 }, 
                 {
                  "height":0,
@@ -159,7 +250,7 @@
                  "visible":true,
                  "width":0,
                  "x":84,
-                 "y":1269.33333333333
+                 "y":1269.33
                 }, 
                 {
                  "height":0,
@@ -177,7 +268,7 @@
                  "visible":true,
                  "width":0,
                  "x":110,
-                 "y":1336.66666666667
+                 "y":1336.67
                 }, 
                 {
                  "height":0,
@@ -194,8 +285,8 @@
                  "type":"enemySpawn",
                  "visible":true,
                  "width":0,
-                 "x":376.666666666667,
-                 "y":358.666666666667
+                 "x":376.667,
+                 "y":358.667
                 }, 
                 {
                  "height":0,
@@ -212,8 +303,8 @@
                  "type":"spawnPoint",
                  "visible":true,
                  "width":0,
-                 "x":338.666666666667,
-                 "y":22.6666666666667
+                 "x":338.667,
+                 "y":22.6667
                 }, 
                 {
                  "height":54.5,
@@ -230,7 +321,7 @@
                  "visible":true,
                  "width":268.5,
                  "x":265.75,
-                 "y":1547.41666666667
+                 "y":1547.42
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -266,8 +357,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":12,
+ "nextlayerid":7,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.1",
