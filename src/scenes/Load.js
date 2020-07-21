@@ -78,6 +78,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON('map1', './assets/Level1.json');
         this.load.tilemapTiledJSON('map2', './assets/Level2.json');
         this.load.tilemapTiledJSON('map3', './assets/Level3.json');
+        this.load.tilemapTiledJSON('map4', './assets/Level4.json');
 
         //audio
         this.load.audio('pop', './assets/bubblePopRefined.wav');
