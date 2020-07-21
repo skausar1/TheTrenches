@@ -78,7 +78,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxyPixelDiff2 = this.oxyDiff * 64;
 
 
-        if(oxy < 0)
+        if(oxy < -1)
         {
             //subtract or add appropriate num of pixels
             this.oxyBarMask.y -= this.oxyPixelDiff/2; 
