@@ -48,7 +48,7 @@ class Menu extends Phaser.Scene {
 
     update() {
 
-        this.scene.start("level4");
+        this.scene.start("level3");
         if(this.boat.x >= centerX)
         {
             if(startTimer.getRepeatCount()%2 == 0)

@@ -71,7 +71,7 @@ class Level3 extends Phaser.Scene {
         this.levelExit.body.setAllowGravity(false);
 
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level3"), null, this);
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level4"), null, this);
 
 
         //Uncomment for debuging platforms
@@ -227,7 +227,7 @@ class Level3 extends Phaser.Scene {
         //this.bgOverlay.y = this.Player.y;
 
         this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + "M";
-        this.cover.alpha = this.Player.y/1000;
+        this.cover.alpha = this.Player.y/10000;
       
 
         if(this.Player.oxy <= 0){
