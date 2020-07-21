@@ -206,7 +206,7 @@ class Level1 extends Phaser.Scene {
     onEvent(){
             let clip = Phaser.Math.RND.pick(this.randomSFX);
             var music = this.sound.add(clip);
-            music.setRate(Phaser.Math.between(0.5, 2));
+            music.setRate(Phaser.Math.Between(0.5, 2));
             music.setVolume(Phaser.Math.Between(0.125, 0.25));
             music.play();
             this.rSFXTimer.reset({delay: Phaser.Math.Between( 2000, 16000), callback: () => this.onEvent(), callbackScope: this, repeat: 1});
