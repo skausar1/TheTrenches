@@ -65,6 +65,7 @@ class Load extends Phaser.Scene {
         this.load.image('tiles_pallete_1', './assets/tileset_pallete_1.png');
         this.load.image('tiles_pallete_1_large', './assets/pallete_1_large_props.png');
         this.load.image('tiles_pallete_1_extralarge', './assets/pallete_1_EXTRALARGE.png');
+        this.load.image('tiles_pallete_1_extralarge_plants', './assets/palette_1_plants_EXTRAEXTRALARGE.png');
 
 
         //animation sheets

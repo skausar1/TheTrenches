@@ -59,7 +59,10 @@ class Level3 extends Phaser.Scene {
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
 
         this.belowLayer = this.map.createStaticLayer("Collision", this.tileset, 0, 0);
-        console.log(this.belowLayer);
+
+
+        this.midLayer1 = this.map.createStaticLayer("Midground", this.tileset, 0, 0);
+        this.midLayer2 = this.map.createStaticLayer("Midground2", this.tileset, 0, 0);
 
         this.belowLayer.setCollisionByProperty({ collide: true });
 
