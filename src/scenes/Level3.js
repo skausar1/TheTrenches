@@ -53,9 +53,8 @@ class Level2 extends Phaser.Scene {
         this.bgOverlay2.setOrigin(0, 0);
         this.bgOverlay2.setScrollFactor(0);
 
-        this.map = this.make.tilemap({ key: "map2" });
-        this.tileset = this.map.addTilesetImage("AquaSet", "tiles");
-        console.log(this.tileset);
+        this.map = this.make.tilemap({ key: "map3" });
+        this.tileset = this.map.addTilesetImage("AquaSet", "tiles_pallete_1");
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
 
@@ -161,8 +160,6 @@ class Level2 extends Phaser.Scene {
 
         this.renderTexture = rt
 
-        this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
-        this.jelly1 = new Jelly(this, 1000, 250, 'jelly', 0, this.belowLayer, this.Player, 1);
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
         this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(2);
         this.dd1.setVisible(false);
