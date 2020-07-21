@@ -250,10 +250,6 @@ class Level4 extends Phaser.Scene {
             {
                 this.bubbles.children.entries[i].pop();
             }
-            else if(this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
-            {
-                this.bubbles.children.entries[i].setVisible(false);
-            }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)
         {

@@ -245,19 +245,11 @@ class Level2 extends Phaser.Scene {
         this.jelly1.update();
         this.dd1.update();
         this.crab1.update();
-        for(var i = 0; i < this.enemies.children.entries.length; i++)
-        {
-           this.bubbles.children.entries[i].update();
-        }
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
             if(this.physics.overlap(this.Player, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
             {
                 this.bubbles.children.entries[i].pop();
-            }
-            else if(this.physics.overlap(this.belowLayer, this.bubbles.children.entries[i]) && this.bubbles.children.entries[i].visible)
-            {
-                this.bubbles.children.entries[i].setVisible(false);
             }
         }
         if(this.gameClock.now - this.oxyTick >= 2500)
