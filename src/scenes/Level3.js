@@ -1,4 +1,4 @@
-class Level2 extends Phaser.Scene {
+class Level3 extends Phaser.Scene {
     constructor(){
         super("level3");
     }
@@ -54,7 +54,7 @@ class Level2 extends Phaser.Scene {
         this.bgOverlay2.setScrollFactor(0);
 
         this.map = this.make.tilemap({ key: "map3" });
-        this.tileset = this.map.addTilesetImage("AquaSet", "tiles_pallete_1");
+        this.tileset = this.map.addTilesetImage("Trenchset_pallete_1", "tiles_pallete_1");
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
 
@@ -183,10 +183,9 @@ class Level2 extends Phaser.Scene {
         // this.water.alpha = 0.35;
 
         //Displays O2 meter
-        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75);
+        this.O2Display = this.add.text(500, 97, Math.round(this.Player.oxy), this.O2Config).setScrollFactor(0).setScale(0.75).setDepth(101);
         this.O2Display.setColor("black");
         this.O2Display.setFontSize(14);
-        this.O2Display.depth = 5;
 
         //Displays Depth by y of player
         this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
@@ -229,8 +228,6 @@ class Level2 extends Phaser.Scene {
         {
             this.plants.children.entries[i].update();
         }
-        this.isopod1.update();
-        this.jelly1.update();
         this.dd1.update();
         this.crab1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
@@ -255,9 +252,9 @@ class Level2 extends Phaser.Scene {
         }
         this.O2Display.text = (this.Player.oxy);
 
-         // check key input for restart
-         if(this.gameOver)
-         {
+        // check key input for restart
+        if(this.gameOver)
+        {
             if(!gameOverIsDisplayed){
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.O2Config).setOrigin(0.5).setScrollFactor(0);
             this.add.text(game.config.width/2, game.config.height/2 + 64, '(F) to Restart or (A) for Menu').setOrigin(0.5).setScrollFactor(0);

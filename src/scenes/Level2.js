@@ -261,9 +261,9 @@ class Level2 extends Phaser.Scene {
         }
         this.O2Display.text = (this.Player.oxy);
 
-         // check key input for restart
-         if(this.gameOver)
-         {
+        // check key input for restart
+        if(this.gameOver)
+        {
             if(!gameOverIsDisplayed){
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.O2Config).setOrigin(0.5).setScrollFactor(0);
             this.add.text(game.config.width/2, game.config.height/2 + 64, '(F) to Restart or (A) for Menu').setOrigin(0.5).setScrollFactor(0);
@@ -293,7 +293,7 @@ class Level2 extends Phaser.Scene {
             this.light2.scaleX = 1;
             this.renderTexture.draw(this.light2, x + 20, y + 15)
         }
-        
+    
     }
 
 }

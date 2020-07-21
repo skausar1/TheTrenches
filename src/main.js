@@ -16,7 +16,7 @@ let config = {
             gravity: { y: 120 }
         }
     },
-    scene: [Load,Menu,Level1,Level2]
+    scene: [Load,Menu,Level1,Level2,Level3]
 };
 //create main game object
 let game = new Phaser.Game(config); 
