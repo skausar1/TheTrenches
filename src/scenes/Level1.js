@@ -101,7 +101,7 @@ class Level1 extends Phaser.Scene {
         this.levelExit.body.setAllowGravity(false);
 
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level2"), null, this);
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("levelCard", {depth: Phaser.Math.Round(this.Player.y/10), playerOxy: this.Player.oxy, nextLevel: 'level2'}), null, this);
 
         //this.enemies = ['jelly', 'isopod'];
         

@@ -21,7 +21,6 @@ class Jelly extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.collider(this, collisionLayer);
         scene.physics.add.collider(this, Player, () => Player.dealDamage(10, this));
         this.body.setAllowGravity(false);
-        console.log(this);
         //this.aniFrames = [];
         //list of starting frame
         //this.frame = aniFrames[multiplyer-1];

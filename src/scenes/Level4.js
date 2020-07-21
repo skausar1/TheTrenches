@@ -53,7 +53,7 @@ class Level4 extends Phaser.Scene {
         this.bgOverlay2.setOrigin(0, 0);
         this.bgOverlay2.setScrollFactor(0);
 
-        this.map = this.make.tilemap({ key: "map4   " });
+        this.map = this.make.tilemap({ key: "map4" });
         this.tileset = this.map.addTilesetImage("Trenchset_pallete_1", "tiles_pallete_1");
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
@@ -65,13 +65,6 @@ class Level4 extends Phaser.Scene {
 
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
 
-        const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
-        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
-        this.physics.add.existing(this.levelExit);
-        this.levelExit.body.setAllowGravity(false);
-
-        //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level3"), null, this);
 
 
         //Uncomment for debuging platforms
@@ -100,7 +93,13 @@ class Level4 extends Phaser.Scene {
         //create player object
         this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.25);
 
-        //this.enemies = ['jelly', 'isopod'];
+        const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
+        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
+        this.physics.add.existing(this.levelExit);
+        this.levelExit.body.setAllowGravity(false);
+
+        //adding function so that overlapping triggers text to display
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level3"), null, this);
         
         let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
 

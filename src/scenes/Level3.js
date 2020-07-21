@@ -65,13 +65,7 @@ class Level3 extends Phaser.Scene {
 
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
 
-        const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
-        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
-        this.physics.add.existing(this.levelExit);
-        this.levelExit.body.setAllowGravity(false);
-
-        //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level4"), null, this);
+      
 
 
         //Uncomment for debuging platforms
@@ -100,7 +94,13 @@ class Level3 extends Phaser.Scene {
         //create player object
         this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.25);
 
-        //this.enemies = ['jelly', 'isopod'];
+        const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
+        this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400);
+        this.physics.add.existing(this.levelExit);
+        this.levelExit.body.setAllowGravity(false);
+
+        //adding function so that overlapping triggers text to display
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level4"), null, this);
         
         let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
 
