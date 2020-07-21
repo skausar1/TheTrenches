@@ -59,8 +59,8 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     dealDamage(damAmount, enemy) {
         if(!this.isInvincible){
-            this.oxy -= damAmount;
-            this.updateOxyBar(damAmount);
+            this.addOxy(-damAmount);
+            this.updateOxyBar(-damAmount);
             this.body.setBounce(1);
             // this.body.setVelocityX(-this.body.velocity);
              console.log(this.body.velocity);
