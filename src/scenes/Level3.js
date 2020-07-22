@@ -255,7 +255,7 @@ class Level3 extends Phaser.Scene {
                 this.bubbles.children.entries[i].pop();
             }
         }
-        if(this.gameClock.now - this.oxyTick >= 2500)
+        if(this.gameClock.now - this.oxyTick >= 2000)
         {
             this.Player.addOxy(-1);
             //console.log('oxygen =' + this.Player.oxy);
