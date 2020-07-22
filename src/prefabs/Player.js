@@ -60,7 +60,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     addResearch() {
      this.numResearch += 1;
-     
+
      let research = this.scene.add.text(this.x, this.y, 'Research gained!', {fontFamily: 'Courier', fontSize: '16px'});
      var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
         targets: research,
@@ -74,39 +74,47 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(this.oxy + oxy <= this.maxOxy)
         {
             this.oxy += oxy;
+            this.updateOxyBar(oxy);
         }
         else{
+            this.updateOxyBar(this.maxOxy - this.oxy)
             this.oxy = this.maxOxy;
         }
-       // this.updateOxyBar(oxy);
+        
     }
 
-    updateOxyBar() {
+    updateOxyBar(oxy) {
 
-         this.percentOxy = this.oxy / this.maxOxy;
-         this.percentOxyScaled = this.percentOxy * 64;
-         this.oxyOffset = Math.round(64 - this.percentOxyScaled);
+        //Saif! I tried a slightly different method of updating the oxygen bar, by redrawing it every frame instead of during each call.
+        //its the commented out stuff.
+        //the idea is to just keep the bar up to date with the current oxygen percentage
+        //also check the discord! thanks bud
 
-         this.oxyBarMask.destroy();
-         this.oxyBarMask = this.scene.add.sprite(490, 110 + this.oxyOffset, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100); 
-         this.oxyBar.mask.destroy();
-         this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(this.scene, this.oxyBarMask);
-        // //find percentage of bar to obscure
-        // this.oxyDiff = oxy / this.maxOxy;
-        // //multiply this percentage by the height of the bar to determine number of pixels to obscure
-        // this.oxyPixelDiff = this.oxyDiff * 64 * .75;
-        // this.oxyPixelDiff2 = this.oxyDiff * 64;
+        //  this.percentOxy = this.oxy / this.maxOxy;
+        //  this.percentOxyScaled = this.percentOxy * 64;
+        //  this.oxyOffset = Math.round(64 - this.percentOxyScaled);
+
+        //  this.oxyBarMask.destroy();
+        //  this.oxyBarMask = this.scene.add.sprite(490, 110 + this.oxyOffset, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100); 
+        //  this.oxyBar.mask.destroy();
+        //  this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(this.scene, this.oxyBarMask);
+
+        //find percentage of bar to obscure
+        this.oxyDiff = oxy / this.maxOxy;
+        //multiply this percentage by the height of the bar to determine number of pixels to obscure
+        this.oxyPixelDiff = this.oxyDiff * 64 * .75;
+        this.oxyPixelDiff2 = this.oxyDiff * 64;
 
 
-        // if(oxy < -1)
-        // {
-        //     //subtract or add appropriate num of pixels
-        //     this.oxyBarMask.y -= this.oxyPixelDiff2/ 1.15; 
-        // }
-        // else
-        // {
-        //     this.oxyBarMask.y -= this.oxyPixelDiff2/2.25;
-        // }
+        if(oxy < -1)
+        {
+            //subtract or add appropriate num of pixels
+            this.oxyBarMask.y -= this.oxyPixelDiff; 
+        }
+        else
+        {
+            this.oxyBarMask.y -= this.oxyPixelDiff;
+        }
     }
 
     //Based on this answer: https://phaser.discourse.group/t/solved-making-a-player-invincible-for-a-brief-time/3211/2
@@ -137,7 +145,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     update()
     {
-        this.updateOxyBar(0);
         this.updateCycle += 1;
 
         if(this.updateCycle >= 300 && this.canJump <= 0)
