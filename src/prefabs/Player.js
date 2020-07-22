@@ -5,7 +5,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
         //for updating oxy bar
         this.maxOxy = oxygen;
-        this.cash = 0;
 
         
         
@@ -36,13 +35,13 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
        this.quips = ['By Jove!', 'Good heavens!', 'This is simply marvelous!', 'I hope I can recall the way out...', 'Goodness gracious!', 'What in the name of science is this?']
        //add timer for quip machine
 
-     this.quipTimer = this.scene.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
+     this.quipTimer = this.scene.time.addEvent({delay: 1000, callback: () => this.onEvent(), callbackScope: this });
     }
 
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
-            let passage = this.scene.add.text(this.x - 25, this.y - 25, quip, {font: 'Courier', fontSize: '16px'}).setScrollFactor(0);
-
+            let passage = this.scene.add.text(this.x, this.y, quip, {font: 'Courier', fontSize: '16px'}).setScrollFactor(0);
+            console.log("unleashing quip");
                var delay = this.scene.time.delayedCall(5000, () => this.scene.tweens.add({
                   targets: passage,
                   alpha: 0,
@@ -62,14 +61,13 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(this.oxy <= this.maxOxy)
         {
             this.oxy += oxy;
-            this.updateOxyBar(oxy);
         }
     }
 
-    updateOxyBar(oxy) {
+    updateOxyBar() {
 
         //find percentage of bar to obscure
-        this.oxyDiff = oxy / this.maxOxy;
+        this.oxyDiff = this.oxy / this.maxOxy;
         //multiply this percentage by the height of the bar to determine number of pixels to obscure
         this.oxyPixelDiff = this.oxyDiff * 64;
 
@@ -86,7 +84,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     dealDamage(damAmount, enemy) {
         if(!this.isInvincible){
             this.addOxy(-damAmount);
-            this.updateOxyBar(-damAmount);
             this.body.setBounce(1);
             // this.body.setVelocityX(-this.body.velocity);
              console.log(this.body.velocity);
@@ -110,7 +107,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     update()
     {
-
+        this.updateOxyBar();
         this.updateCycle += 1;
 
         if(this.updateCycle >= 300 && this.canJump <= 0)
