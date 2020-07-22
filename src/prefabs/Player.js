@@ -40,12 +40,12 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
-            let passage = this.scene.add.text(this.x, this.y, quip, {font: 'Courier', fontSize: '16px'}).setScrollFactor(0);
+            let passage = this.scene.add.text(this.x, this.y, quip, {font: 'Courier', fontSize: '16px'});
             console.log("unleashing quip");
-               var delay = this.scene.time.delayedCall(5000, () => this.scene.tweens.add({
+               var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
                   targets: passage,
                   alpha: 0,
-                  duration: 5000,
+                  duration: 3000,
                   ease: 'Power2'
                 }, this), null, this);
 
@@ -65,12 +65,13 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         else{
             this.oxy = this.maxOxy;
         }
+        this.updateOxyBar(oxy);
     }
 
-    updateOxyBar() {
+    updateOxyBar(oxy) {
 
         //find percentage of bar to obscure
-        this.oxyDiff = this.oxy / this.maxOxy;
+        this.oxyDiff = oxy / this.maxOxy;
         //multiply this percentage by the height of the bar to determine number of pixels to obscure
         this.oxyPixelDiff = this.oxyDiff * 64 * .75;
         this.oxyPixelDiff2 = this.oxyDiff * 64;
@@ -79,11 +80,11 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         if(oxy < -1)
         {
             //subtract or add appropriate num of pixels
-            this.oxyBarMask.y -= this.oxyPixelDiff/2; 
+            this.oxyBarMask.y -= this.oxyPixelDiff2/ 1.15; 
         }
         else
         {
-            this.oxyBarMask.y -= this.oxyPixelDiff/1.15;
+            this.oxyBarMask.y -= this.oxyPixelDiff2/2.25;
         }
     }
 
@@ -115,7 +116,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     update()
     {
-        this.updateOxyBar();
         this.updateCycle += 1;
 
         if(this.updateCycle >= 300 && this.canJump <= 0)
