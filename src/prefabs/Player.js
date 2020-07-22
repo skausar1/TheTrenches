@@ -1,11 +1,12 @@
 class Player extends Phaser.Physics.Arcade.Sprite  {
-    constructor(scene, x, y, texture, frame, oxygen){
+    constructor(scene, x, y, texture, frame, oxygen, numResearch){
         super(scene, x, y, texture, frame);
         this.oxy = oxygen;
 
         //for updating oxy bar
         this.maxOxy = oxygen;
-
+        this.numResearch = numResearch;
+        let missingOxy = 100 - this.oxy;
         
         
         //add object to existing scene
@@ -35,12 +36,12 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
        this.quips = ['By Jove!', 'Good heavens!', 'This is simply marvelous!', 'I hope I can recall the way out...', 'Goodness gracious!', 'What in the name of science is this?']
        //add timer for quip machine
 
-     this.quipTimer = this.scene.time.addEvent({delay: 1000, callback: () => this.onEvent(), callbackScope: this });
+     this.quipTimer = this.scene.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
     }
 
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
-            let passage = this.scene.add.text(this.x, this.y, quip, {font: 'Courier', fontSize: '16px'});
+            let passage = this.scene.add.text(this.x, this.y, quip, {fontFamily: 'Courier', fontSize: '8px'});
             console.log("unleashing quip");
                var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
                   targets: passage,
@@ -57,6 +58,18 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         
     }
 
+    addResearch() {
+     this.numResearch += 1;
+     
+     let research = this.scene.add.text(this.x, this.y, 'Research gained!', {fontFamily: 'Courier', fontSize: '16px'});
+     var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
+        targets: research,
+        alpha: 0,
+        duration: 3000,
+        ease: 'Power2'
+      }, this), null, this);
+    }
+
     addOxy(oxy) {
         if(this.oxy + oxy <= this.maxOxy)
         {
@@ -65,27 +78,35 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         else{
             this.oxy = this.maxOxy;
         }
-        this.updateOxyBar(oxy);
+       // this.updateOxyBar(oxy);
     }
 
-    updateOxyBar(oxy) {
+    updateOxyBar() {
 
-        //find percentage of bar to obscure
-        this.oxyDiff = oxy / this.maxOxy;
-        //multiply this percentage by the height of the bar to determine number of pixels to obscure
-        this.oxyPixelDiff = this.oxyDiff * 64 * .75;
-        this.oxyPixelDiff2 = this.oxyDiff * 64;
+         this.percentOxy = this.oxy / this.maxOxy;
+         this.percentOxyScaled = this.percentOxy * 64;
+         this.oxyOffset = Math.round(64 - this.percentOxyScaled);
+
+         this.oxyBarMask.destroy();
+         this.oxyBarMask = this.scene.add.sprite(490, 110 + this.oxyOffset, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100); 
+         this.oxyBar.mask.destroy();
+         this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(this.scene, this.oxyBarMask);
+        // //find percentage of bar to obscure
+        // this.oxyDiff = oxy / this.maxOxy;
+        // //multiply this percentage by the height of the bar to determine number of pixels to obscure
+        // this.oxyPixelDiff = this.oxyDiff * 64 * .75;
+        // this.oxyPixelDiff2 = this.oxyDiff * 64;
 
 
-        if(oxy < -1)
-        {
-            //subtract or add appropriate num of pixels
-            this.oxyBarMask.y -= this.oxyPixelDiff2/ 1.15; 
-        }
-        else
-        {
-            this.oxyBarMask.y -= this.oxyPixelDiff2/2.25;
-        }
+        // if(oxy < -1)
+        // {
+        //     //subtract or add appropriate num of pixels
+        //     this.oxyBarMask.y -= this.oxyPixelDiff2/ 1.15; 
+        // }
+        // else
+        // {
+        //     this.oxyBarMask.y -= this.oxyPixelDiff2/2.25;
+        // }
     }
 
     //Based on this answer: https://phaser.discourse.group/t/solved-making-a-player-invincible-for-a-brief-time/3211/2
@@ -116,6 +137,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     update()
     {
+        this.updateOxyBar(0);
         this.updateCycle += 1;
 
         if(this.updateCycle >= 300 && this.canJump <= 0)

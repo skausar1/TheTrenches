@@ -3,6 +3,12 @@ class Level1 extends Phaser.Scene {
         super("level1");
     }
 
+    init(data) {
+        this.lastDepth = data.depth;
+        this.lastOxy = data.oxy;
+        this.numResearch = data.numResearch;
+    }
+
     preload() {
     }
 
@@ -90,10 +96,11 @@ class Level1 extends Phaser.Scene {
         });
 
 
+
         //find player spawn
         const playerSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "SpawnPoint");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.5);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, this.lastOxy, this.numResearch).setScale(0.5);
 
         const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
         this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 400, 400).setOrigin(0,0);
@@ -101,8 +108,16 @@ class Level1 extends Phaser.Scene {
         this.levelExit.body.setAllowGravity(false);
         
 
+        let researchObjects = this.map.getObjectLayer('research')['objects'];
+        researchObjects.forEach(researchObject => {
+            let research = new Research(this, researchObject.x, researchObject.y, 'fossil', 0, this.belowLayer, this.Player).setOrigin(0,0);
+            console.log('research added!')
+        });
+
+        this.maxResearch = 10;
+
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('level2', null, this));
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.numResearch}, this));
 
 
         //this.enemies = ['jelly', 'isopod'];
@@ -192,7 +207,7 @@ class Level1 extends Phaser.Scene {
         this.O2Display.setColor("black");
         this.O2Display.setFontSize(14);
         //Displays Depth by y of player
-        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
+        this.pressureDisplay = this.add.text(450, 25, "Depth " + (Math.round(this.Player.y/10) + this.lastDepth) + "M", this.O2Config).setScrollFactor(0);
 
         //checking failstate (too little oxygen)
         this.gameOver = false;
@@ -228,7 +243,7 @@ class Level1 extends Phaser.Scene {
         //this.bgOverlay.x = this.Player.x;
         //this.bgOverlay.y = this.Player.y;
 
-        this.pressureDisplay.text = "Depth " + Math.round(this.Player.y/10) + "M";
+        this.pressureDisplay.text = "Depth " + (Math.round(this.Player.y/10) + this.lastDepth) + "M";
         this.cover.alpha = this.Player.y/10000;
       
 

@@ -3,6 +3,11 @@ class Level4 extends Phaser.Scene {
         super("level4");
     }
 
+    init(data) {
+        this.lastDepth = data.depth;
+        this.lastOxy = data.oxy;
+    }
+
     preload() {
     }
 
@@ -95,7 +100,7 @@ class Level4 extends Phaser.Scene {
         //find player spawn
         const playerSpawn = this.map.findObject("Spawn", obj => obj.name == "player_spawn");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.25);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, this.lastOxy).setScale(0.5);
 
         const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
         this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400).setOrigin(0,0);
@@ -103,7 +108,7 @@ class Level4 extends Phaser.Scene {
         this.levelExit.body.setAllowGravity(false);
 
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level3"), null, this);
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.numResearch}, this));
         
         let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
 
@@ -191,7 +196,7 @@ class Level4 extends Phaser.Scene {
         this.O2Display.setFontSize(14);
 
         //Displays Depth by y of player
-        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
+        this.pressureDisplay = this.add.text(450, 25, "Depth " + (Math.round(this.Player.y/10) + this.lastDepth) + "M", this.O2Config).setScrollFactor(0);
 
         //checking failstate (too little oxygen)
         this.gameOver = false;
