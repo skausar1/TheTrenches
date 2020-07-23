@@ -3,6 +3,12 @@ class Level3 extends Phaser.Scene {
         super("level3");
     }
 
+    init(data) {
+        this.lastDepth = data.depth;
+        this.lastOxy = data.oxy;
+        this.numResearch = data.numResearch;
+    }
+
     preload() {
     }
 
@@ -103,7 +109,7 @@ class Level3 extends Phaser.Scene {
         this.levelExit.body.setAllowGravity(false);
 
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start("level4"), null, this);
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 4, numResearch: this.Player.numResearch}, this));
         
         let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
 
@@ -191,7 +197,7 @@ class Level3 extends Phaser.Scene {
         this.O2Display.setFontSize(14);
 
         //Displays Depth by y of player
-        this.pressureDisplay = this.add.text(450, 25, "Depth " + Math.round(this.Player.y/10) + "M", this.O2Config).setScrollFactor(0);
+        this.pressureDisplay = this.add.text(450, 25, "Depth " + (Math.round(this.Player.y/10) + this.lastDepth) + "M", this.O2Config).setScrollFactor(0);
 
         //checking failstate (too little oxygen)
         this.gameOver = false;

@@ -47,6 +47,7 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
+        this.scene.start("levelScene", {depth: 0, playerOxy: 100, nextLevel: 1, numResearch: 0});
         if(this.boat.x >= centerX)
         {
             if(startTimer.getRepeatCount()%2 == 0)
@@ -73,7 +74,7 @@ class Menu extends Phaser.Scene {
         }
         else if(this.sea.y <= -5)
         {
-            this.scene.start("level1");
+            this.scene.start("levelScene", {depth: 0, playerOxy: 100, nextLevel: 1, numResearch: 0});
             start = false;
         }
     }

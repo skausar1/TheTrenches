@@ -1,12 +1,10 @@
 class Player extends Phaser.Physics.Arcade.Sprite  {
-    constructor(scene, x, y, texture, frame, oxygen){
+    constructor(scene, x, y, texture, frame, oxygen, numResearch){
         super(scene, x, y, texture, frame);
         this.oxy = oxygen;
 
         //for updating oxy bar
         this.maxOxy = 100;
-
-        
         
         //add object to existing scene
         scene.add.existing(this);
@@ -32,23 +30,22 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         
         this.isInvincible = false;
 
-        this.updateCycle = 0;
-
+        this.passage = null;
        //create quip machine
        this.quips = ['By Jove!', 'Good heavens!', 'This is simply marvelous!', 'I hope I can recall the way out...', 'Goodness gracious!', 'What in the name of science is this?']
        //add timer for quip machine
 
-        this.quipTimer = this.scene.time.addEvent({delay: 1000, callback: () => this.onEvent(), callbackScope: this });
+     this.quipTimer = this.scene.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
     }
 
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
-            let passage = this.scene.add.text(this.x, this.y, quip, {font: 'Courier', fontSize: '16px'}).setScrollFactor(0);
+            this.passage = this.scene.add.text(this.body.position.x + 10, this.body.position.y - 20, quip, {fontFamily: 'Courier', fontSize: '8px'});
             console.log("unleashing quip");
-               var delay = this.scene.time.delayedCall(5000, () => this.scene.tweens.add({
-                  targets: passage,
+               var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
+                  targets: this.passage,
                   alpha: 0,
-                  duration: 5000,
+                  duration: 3000,
                   ease: 'Power2'
                 }, this), null, this);
 
@@ -58,6 +55,18 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     preload() {
         
+    }
+
+    addResearch() {
+     this.numResearch += 1;
+
+     let research = this.scene.add.text(this.x, this.y, 'Research gained!', {fontFamily: 'Courier', fontSize: '16px'});
+     var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
+        targets: research,
+        alpha: 0,
+        duration: 3000,
+        ease: 'Power2'
+      }, this), null, this);
     }
 
     addOxy(oxy) {
@@ -74,6 +83,20 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     }
 
     updateOxyBar(oxy) {
+
+        //Saif! I tried a slightly different method of updating the oxygen bar, by redrawing it every frame instead of during each call.
+        //its the commented out stuff.
+        //the idea is to just keep the bar up to date with the current oxygen percentage
+        //also check the discord! thanks bud
+
+        //  this.percentOxy = this.oxy / this.maxOxy;
+        //  this.percentOxyScaled = this.percentOxy * 64;
+        //  this.oxyOffset = Math.round(64 - this.percentOxyScaled);
+
+        //  this.oxyBarMask.destroy();
+        //  this.oxyBarMask = this.scene.add.sprite(490, 110 + this.oxyOffset, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100); 
+        //  this.oxyBar.mask.destroy();
+        //  this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(this.scene, this.oxyBarMask);
 
         //find percentage of bar to obscure
         this.oxyDiff = oxy / this.maxOxy;
@@ -113,6 +136,14 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     update()
     {
+        this.updateCycle += 1;
+
+        if(this.passage != null)
+        {
+            this.passage.x = this.body.position.x + 10;
+            this.passage.y = this.body.position.y - 20;
+        
+        }
         if(keyA.isDown)
         {
             this.body.setAccelerationX(-this.MAX_ACCEL);
