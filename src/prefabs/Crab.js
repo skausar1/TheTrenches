@@ -7,9 +7,10 @@ class Crab extends Phaser.Physics.Arcade.Sprite {
          this.crabWalk = this.scene.anims.create({
             key: 'crabWalk',
             frames: this.scene.anims.generateFrameNumbers('crab', { start: 0, end: 2, first: 0}),
-            frameRate: 3,
-            repeat: true
+            frameRate: 10,
+            repeat: 1
         })
+
 
         //add object to existing scene
         scene.add.existing(this);
@@ -52,7 +53,7 @@ class Crab extends Phaser.Physics.Arcade.Sprite {
     update() {
 
        
-        this.anims.play('crabWalk');
+        this.anims.play('crabWalk', true);
         this.collisionZone.x = this.x;
         this.collisionZone.y = this.y;
         if(this.body.blocked.left || this.body.blocked.right){

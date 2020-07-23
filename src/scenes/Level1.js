@@ -120,27 +120,6 @@ class Level1 extends Phaser.Scene {
         this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.researchGot}, this));
 
 
-        //this.enemies = ['jelly', 'isopod'];
-        
-        // let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
-
-        // this.enemies = this.add.group();
-        // enemyObjects.map((element) => {
-
-        //     console.log(element.properties[0].value);
-        //     let enemy;
-
-        //     if(element.properties[0].value == 'jelly')
-        //         enemy = new Jelly(this, element.x, element.y, 'jelly', 0, this.belowLayer, this.Player, 1).setScale(0.25);
-        //     else if(element.properties[0].value == 'isopod')
-        //         enemy = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
-
-            
-        //     console.log(enemy);
-
-        //     this.enemies.add(enemy);
-        // })
-
         //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
         this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000);
         

@@ -60,7 +60,7 @@ class Level2 extends Phaser.Scene {
         this.bgOverlay2.setScrollFactor(0);
 
         this.map = this.make.tilemap({ key: "map2" });
-        this.tileset = this.map.addTilesetImage("AquaSet", "tiles");
+        this.tileset = this.map.addTilesetImage("basic_tileset", "tiles");
         console.log(this.tileset);
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
@@ -80,6 +80,12 @@ class Level2 extends Phaser.Scene {
         //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         // });
+
+
+         //find player spawn
+         const playerSpawn = this.map.findObject("Spawn", obj => obj.name == "player_spawn");
+         //create player object
+         this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, globalOxy, this.numResearch).setScale(0.5);
         
         this.plants = this.add.group({
             immovable: true
@@ -94,16 +100,20 @@ class Level2 extends Phaser.Scene {
             this.plants.add(plant);
         });
 
-
-        //find player spawn
-        const playerSpawn = this.map.findObject("Spawn", obj => obj.name == "player_spawn");
-        //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, globalOxy, this.numResearch).setScale(0.5);
+        
+        let researchObjects = this.map.getObjectLayer('research')['objects'];
+        researchObjects.forEach(researchObject => {
+            let research = new Research(this, researchObject.x, researchObject.y, 'fossil', 0, this.belowLayer, this.Player).setOrigin(0,0);
+            console.log('research added!')
+        });
+       
 
         const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");
         this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 200, 400).setOrigin(0,0);
         this.physics.add.existing(this.levelExit);
         this.levelExit.body.setAllowGravity(false);
+
+        this.maxResearch = 10;
 
         //adding function so that overlapping triggers text to display
         this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 3, numResearch: this.Player.researchGot}, this));
@@ -118,7 +128,7 @@ class Level2 extends Phaser.Scene {
             if(element.properties[0].value == 'jelly')
                 enemy = new Jelly(this, element.x, element.y, 'jelly', 0, this.belowLayer, this.Player, 1).setScale(0.25);
             else if(element.properties[0].value == 'isopod')
-                enemy = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
+                enemy = new isopod(this, element.x, element.y, 'isopod', 0, this.belowLayer, this.Player, 1);
             else if(element.properties[0].value == 'crab')
                 enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1);
 
@@ -163,10 +173,10 @@ class Level2 extends Phaser.Scene {
 
         this.renderTexture = rt
 
-        this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
+       
         this.jelly1 = new Jelly(this, 1000, 250, 'jelly', 0, this.belowLayer, this.Player, 1);
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
-        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(2);
+        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1);
         this.dd1.setVisible(false);
 
         this.cameras.main.setZoom(1.5);
@@ -249,11 +259,17 @@ class Level2 extends Phaser.Scene {
         else{
             console.log("you're dead");
         }
+
+
         for(var i = 0; i < this.plants.children.entries.length; i++)
         {
             this.plants.children.entries[i].update();
         }
-        this.isopod1.update();
+
+        for(var i = 0; i < this.enemies.children.entries.length; i++)
+        {
+            this.enemies.children.entries[i].update();
+        }
         this.jelly1.update();
         this.dd1.update();
         this.crab1.update();
