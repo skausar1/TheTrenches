@@ -19,7 +19,7 @@ class DeadDiver extends Phaser.Physics.Arcade.Sprite  {
         this.depth = 0;
 
         //creating detection zone for when player gets close
-        this.collisionZone = this.scene.add.zone(this.x, this.y, 100, 100);
+        this.collisionZone = scene.add.zone(this.body.position.x, this.body.position.y, 100, 100);
         scene.physics.add.existing(this.collisionZone);
         this.collisionZone.body.setAllowGravity(false);
 

@@ -43,7 +43,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
             this.passage = this.scene.add.text(this.body.position.x + 10, this.body.position.y - 20, quip, {fontFamily: 'Courier', fontSize: '8px'});
-            console.log("unleashing quip");
                var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
                   targets: this.passage,
                   alpha: 0,

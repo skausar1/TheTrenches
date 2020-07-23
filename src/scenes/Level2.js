@@ -108,6 +108,11 @@ class Level2 extends Phaser.Scene {
             let research = new Research(this, researchObject.x, researchObject.y, 'fossil', 0, this.belowLayer, this.Player).setOrigin(0,0);
             console.log('research added!')
         });
+
+        let ddObjects = this.map.getObjectLayer('Dead diver')['objects'];
+        ddObjects.forEach(ddObject => {
+            let dd = new DeadDiver(this, ddObject.x, ddObject.y, 'dd', 0, this.Player, Phaser.Math.RND.pick(game.settings.ddDialog)).setOrigin(0,0);
+        });
        
 
         const levelExitSpawn = this.map.findObject("Spawn", obj => obj.name == "level_exit");

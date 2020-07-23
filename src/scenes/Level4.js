@@ -113,6 +113,19 @@ class Level4 extends Phaser.Scene {
         this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.researchGot}, this));
         
         this.physics.add.overlap(this.levelExit, this.Player, () => startOxy = globalOxy);
+
+
+        let researchObjects = this.map.getObjectLayer('research')['objects'];
+        researchObjects.forEach(researchObject => {
+            let research = new Research(this, researchObject.x, researchObject.y, 'fossil', 0, this.belowLayer, this.Player).setOrigin(0,0);
+            console.log('research added!')
+        });
+
+        let ddObjects = this.map.getObjectLayer('Dead diver')['objects'];
+        ddObjects.forEach(ddObject => {
+            let dd = new DeadDiver(this, ddObject.x, ddObject.y, 'dd', 0, this.Player, Phaser.Math.RND.pick(game.settings.ddDialog)).setOrigin(0,0);
+        });
+        
         let enemyObjects = this.map.filterObjects("Spawn", obj => obj.type === "enemySpawn");
 
         this.enemies = this.add.group();

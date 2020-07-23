@@ -114,7 +114,11 @@ class Level1 extends Phaser.Scene {
             console.log('research added!')
         });
 
-        this.maxResearch = 10;
+
+        let ddObjects = this.map.getObjectLayer('Dead diver')['objects'];
+        ddObjects.forEach(ddObject => {
+            let dd = new DeadDiver(this, ddObject.x, ddObject.y, 'dd', 0, this.Player, Phaser.Math.RND.pick(game.settings.ddDialog)).setOrigin(0,0);
+        });
 
         //adding function so that overlapping triggers text to display
         this.physics.add.overlap(this.levelExit, this.Player, () => startOxy = globalOxy);
@@ -160,7 +164,6 @@ class Level1 extends Phaser.Scene {
 
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
         this.jelly1 = new Jelly(this, 1020, 280, 'jelly', 0, this.belowLayer, this.Player, 1);
-        this.dd1 = new DeadDiver(this, 1585, 1108, 'dd', 0, this.Player, ["Beware your avarice, all who dare explore", "The below does not take kindly to plunderers"]);
         this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1);
 
         this.cameras.main.setZoom(1.5);
@@ -247,7 +250,6 @@ class Level1 extends Phaser.Scene {
         }
         this.isopod1.update();
         this.jelly1.update();
-        this.dd1.update();
         this.crab1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
         {
