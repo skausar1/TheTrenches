@@ -4,10 +4,16 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxy = oxygen;
 
         //for updating oxy bar
-        this.maxOxy = oxygen;
+        this.maxOxy = 100;
         this.numResearch = numResearch;
-        let missingOxy = 100 - this.oxy;
-        
+
+        let missingOxy = 100 - oxygen; 
+        if(oxygen < this.maxOxy)
+            missingOxy = (missingOxy / this.maxOxy) * 64 *0.75;
+        else
+            missingOxy = 0;
+
+        console.log(missingOxy);
         
         //add object to existing scene
         scene.add.existing(this);
@@ -16,7 +22,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         //adding sprites oxy bar
         scene.add.sprite(505, 110, 'oxyUI', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
         this.oxyBar = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
-        this.oxyBarMask = scene.add.sprite(490, 110, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
+        this.oxyBarMask = scene.add.sprite(490, 110 + missingOxy, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100);
         this.oxyBarMask.visible = false;
 
         //add mask for oxy bar
