@@ -93,21 +93,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     }
 
     updateOxyBar(oxy) {
-
-        //Saif! I tried a slightly different method of updating the oxygen bar, by redrawing it every frame instead of during each call.
-        //its the commented out stuff.
-        //the idea is to just keep the bar up to date with the current oxygen percentage
-        //also check the discord! thanks bud
-
-        //  this.percentOxy = this.oxy / this.maxOxy;
-        //  this.percentOxyScaled = this.percentOxy * 64;
-        //  this.oxyOffset = Math.round(64 - this.percentOxyScaled);
-
-        //  this.oxyBarMask.destroy();
-        //  this.oxyBarMask = this.scene.add.sprite(490, 110 + this.oxyOffset, 'oxyBars', 0).setScrollFactor(0).setScale(0.75).setDepth(100); 
-        //  this.oxyBar.mask.destroy();
-        //  this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(this.scene, this.oxyBarMask);
-
         //find percentage of bar to obscure
         this.oxyDiff = oxy / this.maxOxy;
         //multiply this percentage by the height of the bar to determine number of pixels to obscure
