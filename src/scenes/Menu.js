@@ -25,6 +25,8 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        globalOxy = 100
+        startOxy = globalOxy
         //finds the center of the screen
         centerX = game.config.width/2;
         let centerY = game.config.height/2;
