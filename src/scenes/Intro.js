@@ -47,7 +47,7 @@ class Intro extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(keySpace))
         {
-            this.scene.start("levelScene", {depth: 0, playerOxy: 100, nextLevel: 1, numResearch: 10})
+            this.scene.start("levelScene", {depth: 0, playerOxy: 100, nextLevel: 1, numResearch: 0})
         }
     }
 }
