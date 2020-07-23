@@ -126,7 +126,7 @@ class Level3 extends Phaser.Scene {
             else if(element.properties[0].value == 'isopod')
                 enemy = new isopod(this, element.x, element.y, 'isopod', 0, this.belowLayer, this.Player, 1);
             else if(element.properties[0].value == 'crab')
-                enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1).setScale(0.67);
+                enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1);
 
             
             //console.log(enemy);
@@ -172,7 +172,7 @@ class Level3 extends Phaser.Scene {
         this.renderTexture = rt
 
         this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
-        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(2);
+        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1).setScale(0.5);
         this.dd1.setVisible(false);
 
         this.cameras.main.setZoom(1.5);
