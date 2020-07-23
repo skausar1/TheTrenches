@@ -50,3 +50,4 @@ game.settings = {
 }
 
 let keyA, keyD, keySpace, keyS, keyF;
+var globalOxy = 100;

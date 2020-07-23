@@ -4,7 +4,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxy = oxygen;
 
         //for updating oxy bar
-        this.maxOxy = oxygen;
+        this.maxOxy = 100;
 
         
         
@@ -21,6 +21,8 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         //add mask for oxy bar
         this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(scene, this.oxyBarMask);
 
+        this.updateOxyBar(-(this.maxOxy - this.oxy));
+
         //edit sprite physics behavior
         this.setDrag(100);
         this.MAX_ACCEL = 200;
@@ -28,14 +30,15 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.body.setCollideWorldBounds(true);
         this.isLeft = false;
         
-       this.isInvincible = false;
+        this.isInvincible = false;
 
+        this.updateCycle = 0;
 
        //create quip machine
        this.quips = ['By Jove!', 'Good heavens!', 'This is simply marvelous!', 'I hope I can recall the way out...', 'Goodness gracious!', 'What in the name of science is this?']
        //add timer for quip machine
 
-     this.quipTimer = this.scene.time.addEvent({delay: 1000, callback: () => this.onEvent(), callbackScope: this });
+        this.quipTimer = this.scene.time.addEvent({delay: 1000, callback: () => this.onEvent(), callbackScope: this });
     }
 
     onEvent(){
@@ -79,15 +82,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxyPixelDiff2 = this.oxyDiff * 64;
 
 
-        if(oxy < -1)
-        {
-            //subtract or add appropriate num of pixels
-            this.oxyBarMask.y -= this.oxyPixelDiff; 
-        }
-        else
-        {
-            this.oxyBarMask.y -= this.oxyPixelDiff;
-        }
+        this.oxyBarMask.y -= this.oxyPixelDiff; 
     }
 
     //Based on this answer: https://phaser.discourse.group/t/solved-making-a-player-invincible-for-a-brief-time/3211/2
@@ -118,11 +113,6 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     update()
     {
-        this.updateCycle += 1;
-
-        if(this.updateCycle >= 300 && this.canJump <= 0)
-            this.canJump = 3;
-
         if(keyA.isDown)
         {
             this.body.setAccelerationX(-this.MAX_ACCEL);

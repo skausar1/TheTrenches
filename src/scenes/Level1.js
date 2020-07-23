@@ -93,7 +93,7 @@ class Level1 extends Phaser.Scene {
         //find player spawn
         const playerSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "SpawnPoint");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, 100).setScale(0.5);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, globalOxy).setScale(0.5);
 
         const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
         this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 400, 400).setOrigin(0,0);
@@ -261,6 +261,7 @@ class Level1 extends Phaser.Scene {
             this.Player.addOxy(-1);
             //console.log('oxygen =' + this.Player.oxy);
             this.oxyTick = this.gameClock.now;
+            globalOxy = this.Player.oxy;
         }
         if(keyF.isDown)
         {
