@@ -13,8 +13,8 @@ class LevelCard extends Phaser.Scene {
         this.numResearch = data.numResearch;
         
         
-        researchTier1 = false;
-        researchTier2 = false;
+        // researchTier1 = false;
+        // researchTier2 = false;
     }
 
     preload() {
