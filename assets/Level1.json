@@ -268,12 +268,12 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1516,
-                 "y":1105.33333333333
+                 "x":1520,
+                 "y":1138
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],

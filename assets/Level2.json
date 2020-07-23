@@ -32,6 +32,53 @@
         }, 
         {
          "draworder":"topdown",
+         "id":6,
+         "name":"Dead diver",
+         "objects":[
+                {
+                 "height":0,
+                 "id":33,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":720,
+                 "y":812.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":34,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":78.6666666666667,
+                 "y":335.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":145.333333333333,
+                 "y":1164
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":4,
          "name":"plants",
          "objects":[
@@ -394,24 +441,6 @@
                  "y":628.5
                 }, 
                 {
-                 "height":0,
-                 "id":6,
-                 "name":"dd1_spawn",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"dd"
-                        }],
-                 "rotation":0,
-                 "type":"spawnPoint",
-                 "visible":true,
-                 "width":0,
-                 "x":80,
-                 "y":351
-                }, 
-                {
                  "height":54.5,
                  "id":10,
                  "name":"level_exit",
@@ -448,8 +477,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":33,
+ "nextlayerid":7,
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.1",
