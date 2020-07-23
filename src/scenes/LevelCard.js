@@ -42,7 +42,6 @@ class LevelCard extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(keySpace))
         {
-            console.log('here');
             this.scene.start(this.nextLevel, {depth: this.currDepth, oxy: this.passOxy, numResearch: this.numResearch})
         }
     }
