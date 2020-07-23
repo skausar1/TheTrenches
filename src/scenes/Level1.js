@@ -100,7 +100,7 @@ class Level1 extends Phaser.Scene {
         //find player spawn
         const playerSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "SpawnPoint");
         //create player object
-        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, globalOxy).setScale(0.5);
+        this.Player = new Player(this, playerSpawn.x, playerSpawn.y, 'Diver', 0, globalOxy, this.numResearch).setScale(0.5);
 
         const levelExitSpawn = this.map.findObject("SpawnPoint", obj => obj.name == "level_exit");
         this.levelExit = this.add.zone(levelExitSpawn.x, levelExitSpawn.y, 400, 400).setOrigin(0,0);
@@ -117,7 +117,7 @@ class Level1 extends Phaser.Scene {
         this.maxResearch = 10;
 
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.numResearch}, this));
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.researchGot}, this));
 
 
         //this.enemies = ['jelly', 'isopod'];

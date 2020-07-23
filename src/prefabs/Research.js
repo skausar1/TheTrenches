@@ -11,6 +11,7 @@ class Research extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.collider(this, collisionLayer);
         scene.physics.add.collider(this, Player, () => {
             Player.addResearch();
+            console.log(Player.researchGot)
             this.destroy();
         });
 

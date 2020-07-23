@@ -2,6 +2,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     constructor(scene, x, y, texture, frame, oxygen, numResearch){
         super(scene, x, y, texture, frame);
         this.oxy = oxygen;
+        this.researchGot = numResearch;
 
         //for updating oxy bar
         this.maxOxy = 100;
@@ -58,7 +59,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     }
 
     addResearch() {
-     this.numResearch += 1;
+     this.researchGot += 1;
 
      let research = this.scene.add.text(this.x, this.y, 'Research gained!', {fontFamily: 'Courier', fontSize: '16px'});
      var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
