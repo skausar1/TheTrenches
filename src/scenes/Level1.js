@@ -229,7 +229,6 @@ class Level1 extends Phaser.Scene {
         //this.bgOverlay.x = this.Player.x;
         //this.bgOverlay.y = this.Player.y;
 
-        this.pressureDisplay.text = "Depth " + (Math.round(this.Player.y/10) + this.lastDepth) + "M";
         this.cover.alpha = this.Player.y/10000;
       
 
