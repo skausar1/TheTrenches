@@ -31,7 +31,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         
        this.isInvincible = false;
 
-
+        this.passage = null;
        //create quip machine
        this.quips = ['By Jove!', 'Good heavens!', 'This is simply marvelous!', 'I hope I can recall the way out...', 'Goodness gracious!', 'What in the name of science is this?']
        //add timer for quip machine
@@ -41,10 +41,10 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     onEvent(){
             let quip = Phaser.Math.RND.pick(this.quips);
-            let passage = this.scene.add.text(this.x, this.y, quip, {fontFamily: 'Courier', fontSize: '8px'});
+            this.passage = this.scene.add.text(this.body.position.x + 10, this.body.position.y - 20, quip, {fontFamily: 'Courier', fontSize: '8px'});
             console.log("unleashing quip");
                var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
-                  targets: passage,
+                  targets: this.passage,
                   alpha: 0,
                   duration: 3000,
                   ease: 'Power2'
@@ -147,9 +147,12 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     {
         this.updateCycle += 1;
 
-        if(this.updateCycle >= 300 && this.canJump <= 0)
-            this.canJump = 3;
-
+        if(this.passage != null)
+        {
+            this.passage.x = this.body.position.x + 10;
+            this.passage.y = this.body.position.y - 20;
+        
+        }
         if(keyA.isDown)
         {
             this.body.setAccelerationX(-this.MAX_ACCEL);

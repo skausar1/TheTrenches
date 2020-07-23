@@ -29,7 +29,7 @@ class LevelCard extends Phaser.Scene {
             alpha: 0,
             duration: 2000,
             ease: 'Power2',
-            callback: this.scene.start(this.nextLevel, {depth: this.currDepth, oxy: this.passOxy})
+            callback: this.scene.start(this.nextLevel, {depth: this.currDepth, oxy: this.passOxy, numResearch: this.numResearch})
           }, this), null, this);
     }
 

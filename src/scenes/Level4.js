@@ -6,6 +6,7 @@ class Level4 extends Phaser.Scene {
     init(data) {
         this.lastDepth = data.depth;
         this.lastOxy = data.oxy;
+        this.numResearch = data.numResearch;
     }
 
     preload() {
