@@ -18,12 +18,13 @@ class LevelCard extends Phaser.Scene {
     create() {
         var passage;
         this.cameras.main.setBackgroundColor("#000000");
+        this.add.image(game.config.width/2, game.config.height/2, 'wall');
         this.time.delayedCall(1000, () => {
-            passage = this.add.text(game.config.width / 2, game.config.height / 4, "DEPTH: " + this.currDepth + 'M', {fontFamily: 'Courier', fontSize: '40px', align: 'center'});
-            this.add.text(game.config.width / 6, game.config.height / 1.25, "Research Materials: " + this.numResearch, {fontFamily: 'Courier', fontSize: '16px', align: 'center'});
+            passage = this.add.text(game.config.width / 2 + 40, game.config.height / 4, "DEPTH: " + this.currDepth + 'M', {fontFamily: 'Courier', fontSize: '40px', align: 'center'});
+            this.add.text(game.config.width / 2 + 15 + 40, game.config.height / 3 + 3, "Research Materials: " + this.numResearch, {fontFamily: 'Courier', fontSize: '16px', align: 'right'});
         }, null, this);
 
-        startText = this.add.text(game.config.width / 2, game.config.height / 2, 'Press Space to Continue', {fontFamily: 'Courier', fontSize: '16px', align: 'center'}).setOrigin(0.5);
+        startText = this.add.text(game.config.width / 2, game.config.height - 50, 'Press Space to Continue', {fontFamily: 'Courier', fontSize: '16px', align: 'center'}).setOrigin(0.5);
         startText.alpha = 0;   
         startTimer = this.time.addEvent({
             delay: 800,

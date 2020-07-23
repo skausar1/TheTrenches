@@ -8,6 +8,8 @@ class Research extends Phaser.Physics.Arcade.Sprite {
         //add physics to object
         scene.physics.add.existing(this);
 
+        this.setScale(0.5);
+
         scene.physics.add.collider(this, collisionLayer);
         scene.physics.add.collider(this, Player, () => {
             Player.addResearch();

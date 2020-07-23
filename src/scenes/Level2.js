@@ -204,6 +204,12 @@ class Level2 extends Phaser.Scene {
         //reference here: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/fadevolume/
         this.randomSFX = ['random1', 'random2', 'random3', 'random4', 'random5', 'random6'];
         this.rSFXTimer = this.time.addEvent({delay: 8000, callback: () => this.onEvent(), callbackScope: this });
+
+          //play BG music
+          var bgm = this.sound.add('lvl1+2', {
+            loop: true
+        })
+        bgm.play();
     }
 
     onEvent(){

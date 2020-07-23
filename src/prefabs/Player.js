@@ -107,6 +107,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
 
     dealDamage(damAmount, enemy) {
         if(!this.isInvincible){
+            this.scene.sound.play("enemyHit");
             this.addOxy(-damAmount);
             this.body.setBounce(1);
             // this.body.setVelocityX(-this.body.velocity);
