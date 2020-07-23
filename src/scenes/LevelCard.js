@@ -24,16 +24,26 @@ class LevelCard extends Phaser.Scene {
             this.add.text(game.config.width / 6, game.config.height / 1.25, "Research Materials: " + this.numResearch, {fontFamily: 'Courier', fontSize: '16px', align: 'center'});
         }, null, this);
 
-        var delay = this.time.delayedCall(3000, () => this.tweens.add({
-            targets: passage,
-            alpha: 0,
-            duration: 2000,
-            ease: 'Power2',
-            callback: this.scene.start(this.nextLevel, {depth: this.currDepth, oxy: this.passOxy, numResearch: this.numResearch})
-          }, this), null, this);
+        startText = this.add.text(game.config.width / 2, game.config.height / 2, 'Press Space to Continue', {fontFamily: 'Courier', fontSize: '16px', align: 'center'}).setOrigin(0.5);
+        startText.alpha = 0;   
+        startTimer = this.time.addEvent({
+            delay: 800,
+            loop:true
+        });
     }
 
     update() {
+        if(startTimer.getRepeatCount()%2 == 0)
+        {
+            startText.alpha = 0;   
+        }
+        else{
+            startText.alpha = 1;
+        }
+        if(Phaser.Input.Keyboard.JustDown(keySpace))
+        {
+            this.scene.start(this.nextLevel, {depth: this.currDepth, oxy: this.passOxy, numResearch: this.numResearch})
+        }
     }
 }
 
