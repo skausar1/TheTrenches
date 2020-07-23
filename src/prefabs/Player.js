@@ -2,6 +2,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     constructor(scene, x, y, texture, frame, oxygen, numResearch){
         super(scene, x, y, texture, frame);
         this.oxy = oxygen;
+        this.researchGot = numResearch;
 
         //for updating oxy bar
         this.maxOxy = 100;
@@ -28,6 +29,8 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         //add mask for oxy bar
         this.oxyBar.mask = new Phaser.Display.Masks.BitmapMask(scene, this.oxyBarMask);
 
+        this.updateOxyBar(-(this.maxOxy - this.oxy));
+
         //edit sprite physics behavior
         this.setDrag(100);
         this.MAX_ACCEL = 200;
@@ -35,7 +38,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.body.setCollideWorldBounds(true);
         this.isLeft = false;
         
-       this.isInvincible = false;
+        this.isInvincible = false;
 
         this.passage = null;
        //create quip machine
@@ -65,7 +68,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
     }
 
     addResearch() {
-     this.numResearch += 1;
+     this.researchGot += 1;
 
      let research = this.scene.add.text(this.x, this.y, 'Research gained!', {fontFamily: 'Courier', fontSize: '16px'});
      var delay = this.scene.time.delayedCall(2000, () => this.scene.tweens.add({
@@ -112,15 +115,7 @@ class Player extends Phaser.Physics.Arcade.Sprite  {
         this.oxyPixelDiff2 = this.oxyDiff * 64;
 
 
-        if(oxy < -1)
-        {
-            //subtract or add appropriate num of pixels
-            this.oxyBarMask.y -= this.oxyPixelDiff; 
-        }
-        else
-        {
-            this.oxyBarMask.y -= this.oxyPixelDiff;
-        }
+        this.oxyBarMask.y -= this.oxyPixelDiff; 
     }
 
     //Based on this answer: https://phaser.discourse.group/t/solved-making-a-player-invincible-for-a-brief-time/3211/2

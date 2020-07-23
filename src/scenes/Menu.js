@@ -1,7 +1,7 @@
-let centerX;
 let start = false;
 let startText;
 let startTimer;
+let centerX;
 
 class Menu extends Phaser.Scene {
     constructor(){
@@ -62,7 +62,7 @@ class Menu extends Phaser.Scene {
         {
             this.boat.x += 2;
         }
-        else if(Phaser.Input.Keyboard.JustDown(keySpace))
+        else 
         {
             start = true;
             startText.text = ''; 
