@@ -83,12 +83,15 @@ class Load extends Phaser.Scene {
 
         //audio
         this.load.audio('pop', './assets/bubblePopRefined.wav');
+        this.load.audio('enemyHit', './assets/clunkingSound.wav');
         this.load.audio('random1', './assets/OOF distorted MK1.mp3');
         this.load.audio('random2', './assets/woodPeckerFrom OuterSpace.mp3');
         this.load.audio('random3', './assets/ungodlyMonster.mp3');
         this.load.audio('random4', './assets/randAlienNoise.mp3');
         this.load.audio('random5', './assets/dTapeUnroll.mp3');
         this.load.audio('random6', './assets/dPillFlicking.mp3');
+        this.load.audio('lvl1+2', './assets/Demented_space_music.mp3');
+        this.load.audio('lvl3+4', './assets/MidQuietPaulStrechFlabbyPlastic.mp3');
         this.context = new AudioContext();
 
 
