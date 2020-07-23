@@ -58,6 +58,7 @@ class Load extends Phaser.Scene {
         this.load.image('fossil', './assets/Fossil.png');
         this.load.image('wasd', './assets/wasd.png');
         this.load.image('spacebar', './assets/space.png');
+        this.load.image('dd', './assets/deaddiver.png');
         
         //UI
         this.load.image('oxyUI', './assets/tankBlank.png');

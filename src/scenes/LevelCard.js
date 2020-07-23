@@ -2,14 +2,19 @@ class LevelCard extends Phaser.Scene {
     
     constructor(){
         super("levelScene");
-    
     }
+
+
+
     init(data) {
         this.currDepth = data.depth;
         this.passOxy = data.playerOxy;
         this.nextLevel = "level" + data.nextLevel;
         this.numResearch = data.numResearch;
-        console.log(data);
+        
+        
+        researchTier1 = false;
+        researchTier2 = false;
     }
 
     preload() {
@@ -31,6 +36,11 @@ class LevelCard extends Phaser.Scene {
             loop:true
         });
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        if(this.numResearch >= 10)
+        {
+            this.add.text(game.config.width / 2 + 40, game.config.height / 4, "New Reseach Unlocked!\n\t Isopods:  \nGadzooks! Look at the girth of that pill bug! \nIf such a small insect can become so large at this depth, I shudder to imagine what will follow.\n I'd better cook up a plan to back slang it out of here if need be.", {fontFamily: 'Courier', fontSize: '12px', align: 'left'});
+        }
     }
 
     update() {
