@@ -159,9 +159,8 @@ class Level1 extends Phaser.Scene {
 
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
         this.jelly1 = new Jelly(this, 1020, 280, 'jelly', 0, this.belowLayer, this.Player, 1);
-        this.dd1 = new DeadDiver(this, 1585, 1128, 'fossil', 0, this.Player, ["I crave death", "please be merciful"]);
+        this.dd1 = new DeadDiver(this, 1585, 1108, 'dd', 0, this.Player, ["Beware your avarice, all who dare explore", "The below does not take kindly to plunderers"]);
         this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1);
-        this.dd1.setVisible(false);
 
         this.cameras.main.setZoom(1.5);
         this.cameras.main.startFollow(this.Player);

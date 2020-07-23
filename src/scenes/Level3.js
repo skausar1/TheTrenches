@@ -124,7 +124,7 @@ class Level3 extends Phaser.Scene {
             else if(element.properties[0].value == 'isopod')
                 enemy = new isopod(this, element.x, element.y, 'isopod', 0, this.belowLayer, this.Player, 1);
             else if(element.properties[0].value == 'crab')
-                enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1);
+                enemy = new Crab(this, element.x, element.y, 'crab', 0, this.belowLayer, this.Player, 1).setScale(0.67);
 
             
             //console.log(enemy);
@@ -263,7 +263,7 @@ class Level3 extends Phaser.Scene {
         {
             this.enemies.children.entries[i].update();
         }
-        
+
         this.dd1.update();
         this.crab1.update();
         for(var i = 0; i < this.bubbles.children.entries.length; i++)
