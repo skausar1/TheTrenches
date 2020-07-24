@@ -7,7 +7,7 @@ class Level2 extends Phaser.Scene {
         this.lastDepth = data.depth;
         this.lastOxy = data.oxy;
         this.numResearch = data.numResearch;
-        console.lpg(data);
+        console.log(data);
     }
 
     preload() {
