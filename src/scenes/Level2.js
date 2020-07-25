@@ -61,12 +61,10 @@ class Level2 extends Phaser.Scene {
 
         this.map = this.make.tilemap({ key: "map2" });
         this.tileset = this.map.addTilesetImage("basic_tileset", "tiles_extruded");
-        console.log(this.tileset);
 
         this.decoLayer = this.map.createStaticLayer("Decoration", this.tileset, 0, 0);
 
         this.belowLayer = this.map.createStaticLayer("Collision", this.tileset, 0, 0);
-        console.log(this.belowLayer)
 
         this.belowLayer.setCollisionByProperty({ collide: true });
 

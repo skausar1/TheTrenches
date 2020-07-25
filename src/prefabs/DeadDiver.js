@@ -22,7 +22,6 @@ class DeadDiver extends Phaser.Physics.Arcade.Sprite  {
         this.collisionZone = scene.add.zone(this.body.position.x, this.body.position.y, 100, 100);
         scene.physics.add.existing(this.collisionZone);
         this.collisionZone.body.setAllowGravity(false);
-
         //adding function so that overlapping triggers text to display
         scene.physics.add.overlap(this.collisionZone, Player, () => this.triggerText(), null, this);
         this.written = false;

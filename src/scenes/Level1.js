@@ -61,10 +61,8 @@ class Level1 extends Phaser.Scene {
 
         this.map = this.make.tilemap({ key: "map1" });
         this.tileset = this.map.addTilesetImage("AquaSet", "tiles_extruded");
-        console.log(this.tileset);
 
         this.belowLayer = this.map.createStaticLayer("WorldLayer", this.tileset, 0, 0);
-        console.log(this.belowLayer)
 
         this.belowLayer.setCollisionByProperty({ collides: true });
        
@@ -102,7 +100,6 @@ class Level1 extends Phaser.Scene {
         let researchObjects = this.map.getObjectLayer('research')['objects'];
         researchObjects.forEach(researchObject => {
             let research = new Research(this, researchObject.x, researchObject.y, 'fossil', 0, this.belowLayer, this.Player).setOrigin(0,0);
-            console.log('research added!')
         });
 
 
@@ -149,7 +146,6 @@ class Level1 extends Phaser.Scene {
         this.light.visible = false;
         this.light2 = this.add.triangle(this.Player.x,this.Player.y, 0, 0, 80, 15, 80, -15, 0xFFF)
         this.light2.visible = false;
-        console.log(this.light2);
 
         this.renderTexture = rt
 
@@ -231,9 +227,6 @@ class Level1 extends Phaser.Scene {
         }
         if(!this.gameOver){
             this.Player.update();
-        }
-        else{
-            console.log("you're dead");
         }
         for(var i = 0; i < this.plants.children.entries.length; i++)
         {
