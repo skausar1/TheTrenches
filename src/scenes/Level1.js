@@ -60,7 +60,7 @@ class Level1 extends Phaser.Scene {
         this.bgOverlay2.setScrollFactor(0);
 
         this.map = this.make.tilemap({ key: "map1" });
-        this.tileset = this.map.addTilesetImage("AquaSet", "tiles");
+        this.tileset = this.map.addTilesetImage("AquaSet", "tiles_extruded");
         console.log(this.tileset);
 
         this.belowLayer = this.map.createStaticLayer("WorldLayer", this.tileset, 0, 0);
@@ -73,15 +73,6 @@ class Level1 extends Phaser.Scene {
         
         this.debugGraphics = this.add.graphics().setAlpha(0.75);
 
-
-
-        //Uncomment for debuging platforms
-        // this.belowLayer.renderDebug(this.debugGraphics, {
-        //   tileColor: null, // Color of non-colliding tiles
-        //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-        //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        // });
-        
         this.plants = this.add.group({
             immovable: true
           });
@@ -163,8 +154,8 @@ class Level1 extends Phaser.Scene {
         this.renderTexture = rt
 
         this.isopod1 = new isopod(this, 102, 590, 'isopod', 0, this.belowLayer, this.Player, 1);
-        this.jelly1 = new Jelly(this, 1020, 280, 'jelly', 0, this.belowLayer, this.Player, 1);
-        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 75, 'crab', 0, this.belowLayer, this.Player, 1);
+        this.jelly1 = new Jelly(this, 1020, 380, 'jelly', 0, this.belowLayer, this.Player, 1);
+        this.crab1 = new Crab(this, this.Player.x, this.Player.y + 225, 'crab', 0, this.belowLayer, this.Player, 1);
 
         this.cameras.main.setZoom(1.5);
         this.cameras.main.startFollow(this.Player);

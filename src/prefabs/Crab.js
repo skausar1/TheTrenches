@@ -19,12 +19,8 @@ class Crab extends Phaser.Physics.Arcade.Sprite {
 
         scene.physics.add.collider(this, collisionLayer);
         scene.physics.add.collider(this, Player, () => Player.dealDamage(10, this));
-        //this.aniFrames = [];
-        //list of starting frame
-        //this.frame = aniFrames[multiplyer-1];
 
-        //store pointValue health, damage,
-        this.points = 10 * multiplyer;
+        //store health, damage,
         this.health = 5 * multiplyer;
         this.damage = 5 * multiplyer;
         

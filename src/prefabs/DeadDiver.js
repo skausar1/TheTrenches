@@ -29,10 +29,8 @@ class DeadDiver extends Phaser.Physics.Arcade.Sprite  {
     }
 
     triggerText() {
-        console.log('in zone');
-        console.log(this.collisionZone);
        if(!this.written)
-        this.passage = this.scene.add.text(this.x - 75, this.y - 50, this.text, {font: 'Courier', fontSize: '16px'});
+        this.passage = this.scene.add.text(this.x - 125, this.y - 75, this.text, {font: 'Courier', fontSize: '12px'});
 
         this.written = true;
        // this.nextLine();

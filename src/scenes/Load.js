@@ -64,6 +64,8 @@ class Load extends Phaser.Scene {
         this.load.image('oxyUI', './assets/tankBlank.png');
 
         //tilesets
+        this.load.image('tiles_extruded', './assets/basic_tileset_cleaned.png');
+        this.load.image('tiles_pallete_1_extruded', './assets/tileset_pallete_1_cleaned.png');
         this.load.image('tiles', './assets/basic_tileset.png');
         this.load.image('tiles_pallete_1', './assets/tileset_pallete_1.png');
         this.load.image('tiles_pallete_1_large', './assets/pallete_1_large_props.png');

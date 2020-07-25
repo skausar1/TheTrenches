@@ -287,12 +287,12 @@
         {
          "columns":8,
          "firstgid":1,
-         "image":"basic_tileset.png",
-         "imageheight":256,
-         "imagewidth":256,
-         "margin":0,
+         "image":"basic_tileset_cleaned.png",
+         "imageheight":272,
+         "imagewidth":272,
+         "margin":1,
          "name":"AquaSet",
-         "spacing":0,
+         "spacing":2,
          "tilecount":64,
          "tileheight":32,
          "tiles":[

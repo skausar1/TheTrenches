@@ -75,7 +75,7 @@ class Menu extends Phaser.Scene {
         }
         else if(this.sea.y <= -5)
         {
-            this.scene.start("introScene");
+            this.scene.start("startCutscene");
             start = false;
         }
     }

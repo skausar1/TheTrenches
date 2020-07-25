@@ -45,7 +45,7 @@
                  "visible":true,
                  "width":0,
                  "x":720,
-                 "y":812.666666666667
+                 "y":812.667
                 }, 
                 {
                  "height":0,
@@ -56,8 +56,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":78.6666666666667,
-                 "y":335.333333333333
+                 "x":78.6667,
+                 "y":335.333
                 }, 
                 {
                  "height":0,
@@ -68,7 +68,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":145.333333333333,
+                 "x":145.333,
                  "y":1164
                 }],
          "opacity":1,
@@ -187,7 +187,7 @@
                  "visible":true,
                  "width":0,
                  "x":434,
-                 "y":251.333333333333
+                 "y":251.333
                 }, 
                 {
                  "height":0,
@@ -222,8 +222,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":500.666666666667,
-                 "y":628.666666666667
+                 "x":500.667,
+                 "y":628.667
                 }, 
                 {
                  "height":0,
@@ -235,7 +235,7 @@
                  "visible":true,
                  "width":0,
                  "x":386,
-                 "y":376.666666666667
+                 "y":376.667
                 }, 
                 {
                  "height":0,
@@ -246,7 +246,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":226.333333333333,
+                 "x":226.333,
                  "y":279
                 }, 
                 {
@@ -420,7 +420,7 @@
                  "visible":true,
                  "width":0,
                  "x":491.5,
-                 "y":371.333333333333
+                 "y":371.333
                 }, 
                 {
                  "height":0,
@@ -487,12 +487,12 @@
         {
          "columns":8,
          "firstgid":1,
-         "image":"basic_tileset.png",
-         "imageheight":256,
-         "imagewidth":256,
-         "margin":0,
+         "image":"basic_tileset_cleaned.png",
+         "imageheight":272,
+         "imagewidth":272,
+         "margin":1,
          "name":"basic_tileset",
-         "spacing":0,
+         "spacing":2,
          "tilecount":64,
          "tileheight":32,
          "tiles":[
