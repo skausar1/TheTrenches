@@ -29,8 +29,8 @@ class DeadDiver extends Phaser.Physics.Arcade.Sprite  {
 
     triggerText() {
        if(!this.written)
-        this.passage = this.scene.add.text(this.x - 125, this.y - 75, this.text, {font: 'Courier', fontSize: '12px'});
-
+        this.passage = this.scene.add.text(this.x - 75, this.y - 75, this.text, {font: 'Courier', fontSize: '12px', align: 'left'}).setScale(.85).setOrigin(0,0);
+        this.passage.setWordWrapWidth(150);
         this.written = true;
        // this.nextLine();
     }

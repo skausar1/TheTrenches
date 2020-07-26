@@ -31,7 +31,7 @@ game.settings = {
         "The man’s stature i\ns a bang up to the elephant. \nHis suit looks batty-fanged, with teeth marks the size a foot long in diameter. \nIf I get out alive me and the boys\n will have quite the Benjo",
         "This one has a not \nthat sounds like a Church-bell lady. \nHe called her his Chuckaboo. \nDespite having a fly-rink and gas-pipes, \nhe seemed to be quite the gal-sneaker.",
         "The picture in this locket looks to be\n a gigglemug which got me the morbs thinking about my wife. \nMakes me reget kruger-spoofing to her about being gone for a day or two.\n I need to show her i’m no meater \nand bring fame to the household.",
-        "That parish pick-axe and sauce-box of his is really getting my goat.\n Wonder if he died smothering a parrot. \nI suggestionized I should take the egg\n before everything is not up to dick."
+        "That parish pick-axe and sauce-box of his is really getting \n my goat.\n Wonder if he died smothering a parrot. \nI suggestionized I should take the egg\n before everything is not up to dick."
     ]
 }
 
