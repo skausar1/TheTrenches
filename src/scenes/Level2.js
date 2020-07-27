@@ -143,7 +143,7 @@ class Level2 extends Phaser.Scene {
 
         //Mask taken from https://blog.ourcade.co/posts/2020/phaser-3-object-reveal-flashlight-spotlight-magic-lens/
         this.cover = this.add.rectangle(this.map.widthInPixels/2, this.map.heightInPixels/2, this.map.widthInPixels, this.map.heightInPixels,  0x000000);
-        
+        this.cover.depth = 50;
         const x = this.map.widthInPixels/2;
         const y = this.map.heightInPixels/2;
 
