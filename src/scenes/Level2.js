@@ -251,7 +251,7 @@ class Level2 extends Phaser.Scene {
         //this.bgOverlay.x = this.Player.x;
         //this.bgOverlay.y = this.Player.y;
 
-        this.cover.alpha = (this.Player.y + this.lastDepth*10)/20000;
+        this.cover.alpha = (this.Player.y + this.lastDepth*10)/9000;
       
 
         if(this.Player.oxy <= 0){

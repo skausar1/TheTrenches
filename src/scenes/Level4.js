@@ -1,3 +1,4 @@
+let finalResearch = 0;
 class Level4 extends Phaser.Scene {
     constructor(){
         super("level4");
@@ -110,7 +111,7 @@ class Level4 extends Phaser.Scene {
         this.levelExit.body.setAllowGravity(false);
 
         //adding function so that overlapping triggers text to display
-        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('levelScene', {depth: (Math.round(this.Player.y/10) + this.lastDepth), playerOxy: this.Player.oxy, nextLevel: 2, numResearch: this.Player.researchGot}, this));
+        this.physics.add.overlap(this.levelExit, this.Player, () => this.scene.start('final'))
         
         this.physics.add.overlap(this.levelExit, this.Player, () => startOxy = globalOxy);
 
@@ -243,6 +244,7 @@ class Level4 extends Phaser.Scene {
 
     update(time, delta){
 
+        finalResearch = this.Player.numResearch;
         //update timer
         this.gameClock.update(time, delta);
 
@@ -256,7 +258,7 @@ class Level4 extends Phaser.Scene {
         //this.bgOverlay.x = this.Player.x;
         //this.bgOverlay.y = this.Player.y;
 
-        this.cover.alpha = (this.Player.y + this.lastDepth*10)/20000;
+        this.cover.alpha = (this.Player.y + this.lastDepth*10)/9000;
       
 
         if(this.Player.oxy <= 0){

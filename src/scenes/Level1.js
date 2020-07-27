@@ -219,7 +219,7 @@ class Level1 extends Phaser.Scene {
         //this.bgOverlay.x = this.Player.x;
         //this.bgOverlay.y = this.Player.y;
 
-        this.cover.alpha = this.Player.y/10000;
+        this.cover.alpha = this.Player.y/9000;
       
 
         if(this.Player.oxy <= 0){
