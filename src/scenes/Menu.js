@@ -35,7 +35,7 @@ class Menu extends Phaser.Scene {
 
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this.add.text(centerX, centerY - textSpacer * 2, 'Untitled Trench Game', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY - textSpacer * 2, 'The Trenches', menuConfig).setOrigin(0.5);
         this.sea = this.add.rectangle(0, 300, 640, 485, 0x1E53FF).setOrigin(0,0);
         this.boat = this.add.image(0, centerY + 15, 'boat');
         menuConfig.fontSize = '20px';
